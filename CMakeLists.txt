@@ -5,7 +5,10 @@ project(cpp-project)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_subdirectory(third_party)
-
+## google test
 enable_testing()
+include(GoogleTest) # gtest_add_tests / gtest_discover_tests
+
 add_subdirectory(basic)
+
+add_subdirectory(third_party)
