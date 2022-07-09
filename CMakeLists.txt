@@ -7,4 +7,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_subdirectory(third_party)
 
+enable_testing()
 add_subdirectory(basic)
