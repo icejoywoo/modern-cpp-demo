@@ -1,5 +1,9 @@
 add_executable(hello hello.cc)
 
+# google benchmark
+add_executable(benchmark_demo benchmark_demo.cpp)
+target_link_libraries(benchmark_demo benchmark benchmark_main pthread)
+
 function(add_simple_gtest_file gtest_filename)
     STRING(REGEX REPLACE ".+/(.+)\\..*" "\\1" filename ${gtest_filename})
     add_executable(${filename} ${gtest_filename})
