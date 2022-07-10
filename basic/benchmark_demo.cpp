@@ -1,5 +1,7 @@
 #include <benchmark/benchmark.h>
 
+#include <cstring>
+
 // https://github.com/google/benchmark/blob/main/docs/user_guide.md
 static void BM_memcpy(benchmark::State& state) {
     // Perform setup here
