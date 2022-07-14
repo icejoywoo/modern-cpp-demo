@@ -68,4 +68,6 @@ TEST_F(LambdaTest, AutoTest) {
 
     auto greater = [](auto x, auto y) { return x > y; };
 //    std::map<std::string, int, decltype(greater)> mymap; // only for c++ 20
+    ASSERT_TRUE(greater(10, 5));
+    ASSERT_TRUE(greater(10.4, 5.2));
 }
