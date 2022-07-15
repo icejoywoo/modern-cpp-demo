@@ -6,7 +6,7 @@ include(GoogleTest) # gtest_add_tests / gtest_discover_tests
 
 # google benchmark
 add_executable(benchmark_demo benchmark_demo.cpp)
-target_link_libraries(benchmark_demo benchmark benchmark_main pthread)
+target_link_libraries(benchmark_demo benchmark::benchmark benchmark::benchmark_main pthread)
 
 function(add_simple_gtest_file gtest_filename)
     STRING(REGEX REPLACE ".+/(.+)\\..*" "\\1" filename ${gtest_filename})

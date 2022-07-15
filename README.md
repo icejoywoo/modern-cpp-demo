@@ -1,10 +1,10 @@
 Modern Cpp Demo
 ========
 
-demos for learning modern cpp
+demos for learning modern cpp (since c++11)
 
 
-## submodules
+## third-party submodules
 
 ``` bash
 # add submodule
@@ -18,3 +18,10 @@ git submodule add https://github.com/google/benchmark.git third_party/benchmark
 git submodule sync --recursive
 git submodule update --init --recursive
 ```
+
+## Learning Materials
+
+* [google test](http://google.github.io/googletest/primer.html)
+* [google mock](http://google.github.io/googletest/gmock_for_dummies.html)
+* [google benchmark](https://github.com/google/benchmark)
+* [google sanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer)
