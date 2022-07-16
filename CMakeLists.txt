@@ -28,10 +28,13 @@ else()
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 endif()
 
+include_directories(.)
+
 ## google test
 enable_testing()
 
 add_subdirectory(basic)
+add_subdirectory(template)
 add_subdirectory(error-tests)
 
 add_subdirectory(third_party)
