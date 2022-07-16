@@ -17,9 +17,25 @@ endif()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 include(cmake/common.cmake)
 
+# refer https://github.com/facebookincubator/velox/blob/main/CMakeLists.txt
+execute_process(
+        COMMAND
+        bash -c
+        "( source ${CMAKE_CURRENT_SOURCE_DIR}/scripts/setup-helper-functions.sh && echo -n $(get_cxx_flags $ENV{CPU_TARGET}))"
+        OUTPUT_VARIABLE SCRIPT_CXX_FLAGS
+        RESULT_VARIABLE COMMAND_STATUS)
+
+if(COMMAND_STATUS EQUAL "1")
+    message(FATAL_ERROR "Unable to determine compiler flags!")
+endif()
+message("Setting CMAKE_CXX_FLAGS=${SCRIPT_CXX_FLAGS}")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SCRIPT_CXX_FLAGS}")
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g -fPIC ")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -g -fPIC ")
 
+# debug with memory sanitizer
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O1 -fsanitize=address -fno-omit-frame-pointer ")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O1 -fsanitize=address -fno-omit-frame-pointer ")
@@ -36,5 +52,6 @@ enable_testing()
 add_subdirectory(basic)
 add_subdirectory(template)
 add_subdirectory(error-tests)
+add_subdirectory(xsimd-demo)
 
 add_subdirectory(third_party)
