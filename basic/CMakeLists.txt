@@ -8,13 +8,6 @@ include(GoogleTest) # gtest_add_tests / gtest_discover_tests
 add_executable(benchmark_demo benchmark_demo.cpp)
 target_link_libraries(benchmark_demo benchmark::benchmark benchmark::benchmark_main pthread)
 
-function(add_simple_gtest_file gtest_filename)
-    STRING(REGEX REPLACE ".+/(.+)\\..*" "\\1" filename ${gtest_filename})
-    add_executable(${filename} ${gtest_filename})
-    target_link_libraries(${filename} gtest gtest_main)
-    gtest_add_tests(TARGET ${filename} AUTO)
-endfunction()
-
 # https://www.cnblogs.com/tangxin-blog/p/7910699.html
 FILE(GLOB_RECURSE SRC_FILES "*_test.cc" "*_test.cpp" "*Test.cc" "*Test.cpp")
 FOREACH(FILE_PATH ${SRC_FILES})
