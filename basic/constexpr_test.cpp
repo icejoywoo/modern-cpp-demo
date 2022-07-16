@@ -1,15 +1,8 @@
+#include "common_util.h"
+
 #include "gtest/gtest.h"
 
 #include <limits>
-
-#define ASSERT_ARRAY_SIZE_AND_VALUE(array, size, initial_value) \
-    ASSERT_EQ(size, sizeof array); \
-    for (const auto& e : array) { \
-        ASSERT_EQ(initial_value, e); \
-    }
-
-#define SIMPLE_PRINT(expr, format) \
-    printf(#expr ": " #format "\n", expr)
 
 TEST(ConstexprSuite, BasicTest) {
 //    int x1 = 42;
