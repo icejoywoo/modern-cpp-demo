@@ -45,6 +45,7 @@ else()
 endif()
 
 include_directories(.)
+include_directories(third_party)
 
 ## google test
 enable_testing()
