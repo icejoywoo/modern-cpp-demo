@@ -1,7 +1,10 @@
 #include "template/basics/max.hpp"
+#include "template/basics/stack1.hpp"
 #include "basic/common_util.h"
 
 #include <gtest/gtest.h>
+
+#include <deque>
 
 TEST(TemplateBasicsTest, MaxTest) {
     int i = 42;
@@ -20,4 +23,30 @@ TEST(TemplateBasicsTest, MaxTest) {
     std::string s1 = "mathematics";
     std::string s2 = "math";
     SIMPLE_PRINT(::max(s1, s2).c_str(), "%s");
+}
+
+TEST(TemplateBasicsTest, StackTest) {
+    Stack<int> intStack;
+    intStack.push(7);
+    ASSERT_EQ(7, intStack.top());
+    ASSERT_FALSE(intStack.empty());
+    intStack.pop();
+    ASSERT_TRUE(intStack.empty());
+    try {
+        intStack.pop();
+    } catch (std::out_of_range const& ex) {
+        printf("exception: %s\n", ex.what());
+    }
+
+    Stack<std::string> stringStack;
+    stringStack.push("hello");
+    ASSERT_EQ("hello", stringStack.top());
+    ASSERT_FALSE(stringStack.empty());
+    stringStack.pop();
+    ASSERT_TRUE(stringStack.empty());
+    try {
+        stringStack.pop();
+    } catch (std::out_of_range const& ex) {
+        printf("exception: %s\n", ex.what());
+    }
 }
