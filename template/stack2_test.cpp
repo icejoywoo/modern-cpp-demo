@@ -4,7 +4,7 @@
 
 #include <deque>
 
-TEST(TemplateStackTest, DISABLE_Stack2Test) {
+TEST(TemplateStackTest, DISABLED_Stack2Test) {
     // TODO stack string 的特化实现目前有问题，暂时原因未知
     Stack<std::string> stringStack;
     stringStack.push("hello");
