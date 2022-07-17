@@ -25,3 +25,4 @@ git submodule update --init --recursive
 * [google mock](http://google.github.io/googletest/gmock_for_dummies.html)
 * [google benchmark](https://github.com/google/benchmark)
 * [google sanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer)
+* [现代 C++ 测试工具链(是时候抛弃 gtest/google bench 了)](https://mp.weixin.qq.com/s/HPs4RMKAoeSfG1qZkS8h3Q)
