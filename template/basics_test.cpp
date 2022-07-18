@@ -50,3 +50,18 @@ TEST(TemplateBasicsTest, StackTest) {
         printf("exception: %s\n", ex.what());
     }
 }
+
+template <typename T, int VAL>
+T addValue(T const& x) {
+    return x + VAL;
+}
+
+TEST(TemplateBasicsTest, FunctionTest) {
+    std::vector<int> source = {1, 2, 3, 4, 5};
+    std::vector<int> dest(5/*size*/);
+    std::transform(source.begin(), source.end(), dest.begin(), addValue<int, 5>);
+//    std::transform(source.begin(), source.end(), dest.begin(), (int(*)(int const&)) addValue<int, 5>);
+    for (int i = 0; i < 5; ++i) {
+        ASSERT_EQ(i + 1 + 5, dest[i]);
+    }
+}
