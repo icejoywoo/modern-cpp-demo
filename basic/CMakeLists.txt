@@ -1,4 +1,5 @@
 add_executable(hello hello.cc)
+target_link_libraries(hello glog gflags::gflags)
 
 ## google test
 enable_testing()

@@ -23,6 +23,8 @@ git submodule update --init --recursive
 
 * [google test](http://google.github.io/googletest/primer.html)
 * [google mock](http://google.github.io/googletest/gmock_for_dummies.html)
+* gflags: [github](https://github.com/gflags/gflags) [docs](https://gflags.github.io/gflags/)
+* [google glog](https://github.com/google/glog)
 * [google benchmark](https://github.com/google/benchmark)
 * [google sanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer)
 
