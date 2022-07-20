@@ -10,8 +10,8 @@ endfunction()
 # add simple gtest file without third-party dependency
 function(add_simple_gtest_file gtest_filename)
     set (options "")
-    set (oneValueArgs LIBRARY)
-    set (multiValueArgs "")
+    set (oneValueArgs "")
+    set (multiValueArgs LIBRARY)
     CMAKE_PARSE_ARGUMENTS(GTEST
             "${options}"
             "${oneValueArgs}"
@@ -20,6 +20,7 @@ function(add_simple_gtest_file gtest_filename)
             )
     STRING(REGEX REPLACE ".+/(.+)\\..*" "\\1" filename ${gtest_filename})
     add_executable(${filename} ${gtest_filename})
+#    message(STATUS "GTEST_LIBRARY: ${GTEST_LIBRARY}")
     target_link_libraries(${filename} gtest gtest_main ${GTEST_LIBRARY})
     gtest_add_tests(TARGET ${filename} AUTO)
 endfunction()

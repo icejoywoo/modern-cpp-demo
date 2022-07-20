@@ -15,3 +15,4 @@ add_subdirectory(doctest)
 add_subdirectory(nanobench)
 
 add_subdirectory(xsimd)
+add_subdirectory(simdjson)
