@@ -51,9 +51,13 @@ TEST(SimdjsonTest, BasicTest) {
     {
         auto json = "[1,2,3]"_padded; // The _padded suffix creates a simdjson::padded_string instance
         ondemand::document doc = parser.iterate(json); // parse a string
-        ASSERT_EQ(1, int64_t(doc.at(0)));
-        ASSERT_EQ(2, int64_t(doc.at(1)));
-        ASSERT_EQ(3, int64_t(doc.at(2)));
+        // array 的 at 方法只能调用一次
+        // int64_t(array.at(0)) == 1
+        auto array = doc.get_array();
+        int expected = 1;
+        for (auto elem : array) {
+            ASSERT_EQ(expected++, int64_t(elem));
+        }
     }
 
     {
