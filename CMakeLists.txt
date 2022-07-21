@@ -52,7 +52,7 @@ enable_testing()
 
 add_subdirectory(basic)
 add_subdirectory(template)
-add_subdirectory(error-tests)
+add_subdirectory(simple-tests)
 add_subdirectory(xsimd-demo)
 
 add_subdirectory(third_party)
