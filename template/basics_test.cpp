@@ -65,3 +65,40 @@ TEST(TemplateBasicsTest, FunctionTest) {
         ASSERT_EQ(i + 1 + 5, dest[i]);
     }
 }
+
+template<uint64_t N>
+uint64_t fib() {
+    return fib<N-1>() + fib<N-2>();
+}
+
+template<>
+uint64_t fib<0>() {
+    return 0;
+}
+
+template<>
+uint64_t fib<1>() {
+    return 1;
+}
+
+uint64_t simple_fib(long n) {
+    if (n <= 1) {
+        return n;
+    }
+    uint64_t a = 0;
+    uint64_t b = 1;
+    uint64_t tmp = b;
+    for (int i = 2; i <= n; i++) {
+        b = a + b;
+        a = tmp;
+        tmp = b;
+    }
+    return b;
+}
+
+TEST(TemplateBasicsTest, RecusiveTest) {
+    ASSERT_EQ(simple_fib(2), fib<2>());
+    ASSERT_EQ(simple_fib(10), fib<10>());
+//    printf("%d\n", fib<100>()); // 这个无法打印出来
+    printf("%d\n", simple_fib(100));
+}
