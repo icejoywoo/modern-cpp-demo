@@ -11,12 +11,13 @@ inline T sigma1(T const* start, T const* end) {
 
 TEST(TraitsTest, WrongTest) {
     int array[] = {1, 2, 3, 4, 5};
-    ASSERT_EQ(15, sigma1(array, array + 5));
+    size_t array_size = sizeof(array) / sizeof(int);
+    ASSERT_EQ(15, sigma1(array, array + array_size));
 
     // 结果溢出：97 + 98 + 99 = 294
     // 294 - 256 = 38, 对应为 ascii '&'
     const char* char_array = "abc";
-    ASSERT_EQ('&', sigma1(char_array, char_array + 3));
+    ASSERT_EQ('&', sigma1(char_array, char_array + strlen(char_array)));
 }
 
 template <typename T> class SigmaTraits {
