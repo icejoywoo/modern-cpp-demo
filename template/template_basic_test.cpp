@@ -100,5 +100,71 @@ TEST(TemplateBasicsTest, RecusiveTest) {
     ASSERT_EQ(simple_fib(2), fib<2>());
     ASSERT_EQ(simple_fib(10), fib<10>());
 //    printf("%d\n", fib<100>()); // 这个无法打印出来
-    printf("%d\n", simple_fib(100));
+    printf("%llu\n", simple_fib(100));
+}
+
+// c++ 14
+template <typename T>
+T sum(T arg) {
+    return arg;
+}
+
+template <typename T1, typename... Args>
+auto sum(T1 arg1, Args... args) {
+    return arg1 + sum(args...);
+}
+
+// c++ 17
+// 折叠表达式
+template <typename... Args>
+auto sum2(Args... args) {
+    // 一元向右折叠
+    return (args + ...);
+}
+
+template <typename... Args>
+auto sum3(Args... args) {
+    // 一元向左折叠
+    return (... + args);
+}
+
+TEST(TemplateBasicsTest, RecusiveVarArgsTest) {
+    ASSERT_EQ(sum(1, 2, 3), 6);
+    // float-pointing macros
+    EXPECT_FLOAT_EQ(sum(1, 5.0, 11.7), 17.7);
+    EXPECT_FLOAT_EQ(sum(1, 5.0f, 11.7), 17.7);
+    EXPECT_FLOAT_EQ(sum(1, 5.0, 11.7f), 17.7);
+
+    ASSERT_EQ(sum2(1, 2, 3), 6);
+    // float-pointing macros
+    EXPECT_FLOAT_EQ(sum2(1, 5.0, 11.7), 17.7);
+    EXPECT_FLOAT_EQ(sum2(1, 5.0f, 11.7), 17.7);
+    EXPECT_FLOAT_EQ(sum2(1, 5.0, 11.7f), 17.7);
+
+    ASSERT_EQ("hello c++ world", sum3(std::string("hello"), " c++", " world"));
+}
+
+// c++ 17 using 包展开
+
+template <typename T>
+class Base {
+public:
+    Base() {}
+    Base(T t) : t_(t) {}
+private:
+    T t_;
+};
+
+template <typename... Args>
+class Derived : public Base<Args>...
+{
+public:
+    using Base<Args>::Base...;
+};
+
+TEST(TemplateBasicsTest, UsingVarArgsTest) {
+    Derived<int, std::string, bool> d1 = 11;
+    Derived<int, std::string, bool> d2 = std::string("hello");
+    Derived<int, std::string, bool> d3 = true;
+    // 没办法访问成员变量 t_，这语法具体使用场景？
 }
