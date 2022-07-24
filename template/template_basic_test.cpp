@@ -168,3 +168,19 @@ TEST(TemplateBasicsTest, UsingVarArgsTest) {
     Derived<int, std::string, bool> d3 = true;
     // 没办法访问成员变量 t_，这语法具体使用场景？
 }
+
+// c++ 14 变量模板
+template <typename T>
+constexpr T PI = static_cast<T>(3.1415926535897932385L);
+
+TEST(TemplateBasicsTest, VarTemplateTest) {
+    ASSERT_FLOAT_EQ(3.141593, PI<float>);
+    ASSERT_FLOAT_EQ(3.141593, PI<double>);
+    ASSERT_EQ(3, PI<int>);
+    ASSERT_EQ(3, PI<long>);
+
+    // c++14
+    ASSERT_FALSE((std::is_same<int, std::size_t>::value));
+    // c++17
+    ASSERT_FALSE((std::is_same_v<int, std::size_t>));
+}
