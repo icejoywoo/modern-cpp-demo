@@ -10,3 +10,6 @@ add_test(doctest_test doctest_test)
 
 add_executable(nanobench_test nanobench_test.cpp)
 target_link_libraries(nanobench_test nanobench)
+
+add_executable(boost_filesystem_example boost_filesystem_example.cpp)
+target_link_libraries(boost_filesystem_example PUBLIC Boost::boost Boost::filesystem)

@@ -27,6 +27,7 @@ git submodule update --init --recursive
 * [google glog](https://github.com/google/glog)
 * [google benchmark](https://github.com/google/benchmark)
 * [google sanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer)
+* The Boost C++ Libraries: [1st cn](http://zh.highscore.de/cpp/boost/), [2nd en](https://theboostcpplibraries.com/), [boost-cmake](https://github.com/Orphis/boost-cmake)
 
 ### Articles from WeChat Official Accounts
 * [现代 C++ 测试工具链(是时候抛弃 gtest/google bench 了)](https://mp.weixin.qq.com/s/HPs4RMKAoeSfG1qZkS8h3Q)

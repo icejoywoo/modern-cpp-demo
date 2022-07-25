@@ -16,3 +16,5 @@ add_subdirectory(nanobench)
 
 add_subdirectory(xsimd)
 add_subdirectory(simdjson)
+
+add_subdirectory(boost-cmake)
