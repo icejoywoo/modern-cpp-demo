@@ -10,6 +10,7 @@ add_executable(benchmark_demo benchmark_demo.cpp)
 target_link_libraries(benchmark_demo benchmark::benchmark benchmark::benchmark_main pthread)
 
 add_executable(align_demo align_demo.cpp)
+target_link_libraries(align_demo benchmark::benchmark benchmark::benchmark_main pthread)
 
 # https://www.cnblogs.com/tangxin-blog/p/7910699.html
 FILE(GLOB_RECURSE SRC_FILES "*_test.cc" "*_test.cpp" "*Test.cc" "*Test.cpp")

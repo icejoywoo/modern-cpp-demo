@@ -1,6 +1,6 @@
 # just for tracer_test
 add_library(tracer basics/tracer.cpp)
-target_include_directories(tracer PUBLIC basics/tracer.hpp)
+target_include_directories(tracer PUBLIC basics/)
 
 FILE(GLOB_RECURSE SRC_FILES "*_test.cc" "*_test.cpp" "*Test.cc" "*Test.cpp")
 FOREACH(FILE_PATH ${SRC_FILES})
