@@ -21,10 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.0.0
       - name: InstallDeps
-        run: brew install folly
+        run: brew install folly gcc
       - name: Build project
         uses: nicledomaS/cmake_build_action@v1.4
         with:
           submodule_update: ON
           run_tests: ON
           unit_test_build: -Dtest=ON
+          cmake_args: -DCMAKE_CXX_COMPILER=/home/linuxbrew/.linuxbrew/Cellar/gcc/11.3.0_2/bin/g++ -DCMAKE_C_COMPILER=/home/linuxbrew/.linuxbrew/Cellar/gcc/11.3.0_2/bin/gcc
