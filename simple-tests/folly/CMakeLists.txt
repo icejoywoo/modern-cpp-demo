@@ -1,0 +1,5 @@
+FILE(GLOB_RECURSE SRC_FILES "*_test.cc" "*_test.cpp" "*Test.cc" "*Test.cpp")
+FOREACH(FILE_PATH ${SRC_FILES})
+    #    MESSAGE(STATUS "Found test file: ${FILE_PATH}")
+    add_simple_gtest_file(${FILE_PATH} LIBRARY Folly::folly gflags::gflags Folly::follybenchmark)
+ENDFOREACH(FILE_PATH)
