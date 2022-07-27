@@ -16,13 +16,13 @@ jobs:
         unit_test_build: -Dtest=ON
 
   macos-build:
-    if: ${{ false }}
+    # if: ${{ false }}
     runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2.0.0
-      - name: InstallDeps
-        run: brew install folly
+      #- name: InstallDeps
+      #  run: brew install folly
       - name: Build project
         uses: nicledomaS/cmake_build_action@v1.4
         with:
