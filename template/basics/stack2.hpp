@@ -40,7 +40,7 @@ std::string Stack<std::string>::top() const {
     if (elems.empty()) {
         throw std::out_of_range("Stack<std::string>::top(): empty stack");
     }
-    elems.back();
+    return elems.back();
 }
 
 #endif //MODERN_CPP_DEMO_STACK2_HPP

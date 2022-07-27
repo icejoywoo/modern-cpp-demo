@@ -99,8 +99,8 @@ uint64_t simple_fib(long n) {
 TEST(TemplateBasicsTest, RecusiveTest) {
     ASSERT_EQ(simple_fib(2), fib<2>());
     ASSERT_EQ(simple_fib(10), fib<10>());
-//    printf("%d\n", fib<100>()); // 这个无法打印出来
-    printf("%llu\n", simple_fib(100));
+    // printf("%lu\n", fib<100>());  // 这个无法打印出来
+    printf("%lu\n", simple_fib(100));
 }
 
 // c++ 14
