@@ -54,6 +54,11 @@ TEST(FollyTest, DynamicTest) {
     }
     std::cout << std::endl;
 
+    // folly json opt
+    folly::json::serialization_opts json_opts;
+    json_opts.allow_non_string_keys = true;
+    ASSERT_EQ("{1.2:[null,1,\"abc\",true],true:1.2}", folly::json::serialize(o, json_opts));
+
     // iterate object
     // o.keys, o.values 与 python 很类似
     std::cout << "object: \n";
