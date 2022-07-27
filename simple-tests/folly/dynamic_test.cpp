@@ -115,6 +115,4 @@ TEST(FollyTest, ConvTest) {
     std::shared_ptr<TestData> d = std::make_shared<TestData>("test");
     folly::toAppend(d, &b);
     ASSERT_EQ("1test", b);
-
-    folly::join
 }
