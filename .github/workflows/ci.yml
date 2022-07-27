@@ -16,7 +16,7 @@ jobs:
         unit_test_build: -Dtest=ON
 
   macos-build:
-    # if: ${{ false }}
+    if: ${{ false }}
     runs-on: macos-latest
     steps:
       - name: Checkout
