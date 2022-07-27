@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 
+#include "folly/Conv.h"
 #include "folly/dynamic.h"
 #include "folly/json.h"
 
@@ -76,4 +77,44 @@ TEST(FollyTest, JsonTest) {
     ASSERT_TRUE(object["a"].asBool());
     ASSERT_TRUE(object["a"].asBool());
     ASSERT_TRUE(object["a"].asBool());
+}
+
+class TestData {
+public:
+    explicit TestData(const char* s) : s_(s) {}
+    std::string ToString() const {
+        return s_;
+    }
+private:
+    std::string s_;
+};
+
+namespace folly {
+// Allows us to transparently use folly::toAppend(), folly::join(), etc.
+template <class TString>
+void toAppend(
+    const std::shared_ptr<const TestData>& test_data,
+    TString* result) {
+  result->append(test_data->ToString());
+}
+} // namespace folly
+
+TEST(FollyTest, ConvTest) {
+    ASSERT_EQ("1", folly::to<std::string>(1));
+
+    // std::string
+    std::string a;
+    folly::toAppend("1", &a);
+    ASSERT_EQ("1", a);
+
+    // fbstring
+    folly::fbstring b;
+    folly::toAppend("1", &b);
+    ASSERT_EQ("1", b);
+
+    std::shared_ptr<TestData> d = std::make_shared<TestData>("test");
+    folly::toAppend(d, &b);
+    ASSERT_EQ("1test", b);
+
+    folly::join
 }
