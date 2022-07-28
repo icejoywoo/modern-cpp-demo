@@ -33,22 +33,37 @@ TEST(StlTest, FutureTest) {
 
     ASSERT_EQ(8, result.get());
 
-    // https://en.cppreference.com/w/cpp/thread/future
-    std::promise<int> p;
-    std::future<int> f = p.get_future();
+    {
+      // https://en.cppreference.com/w/cpp/thread/future
+      std::promise<int> p;
+      std::future<int> f = p.get_future();
 
-    std::thread t([&p]{
+      std::thread t([&p] {
         try {
-            // code that may throw
-            throw std::runtime_error("Example");
-        } catch(...) {
-            try {
-                // store anything thrown in the promise
-                p.set_exception(std::current_exception());
-            } catch(...) {} // set_exception() may throw too
+          // code that may throw
+          throw std::runtime_error("Example");
+        } catch (...) {
+          try {
+            // store anything thrown in the promise
+            p.set_exception(std::current_exception());
+          } catch (...) {
+          }  // set_exception() may throw too
         }
-    });
+      });
 
-    ASSERT_ANY_THROW(f.get());
-    t.join();
+      ASSERT_ANY_THROW(f.get());
+      t.join();
+    }
+
+    {
+      std::promise<int> p;
+      std::future<int> f = p.get_future();
+
+      std::thread t([&p] {
+        p.set_value(10);
+      });
+
+      ASSERT_EQ(10, f.get());
+      t.join();
+    }
 }
