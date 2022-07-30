@@ -2,14 +2,6 @@
 
 #include "benchmark/benchmark.h"
 
-int consume(char* src) {
-  int sum = 0;
-  for(int i = 0; i < sizeof(src); i++) {
-    sum += src[i];
-  }
-  return sum;
-}
-
 static void BM_memset(benchmark::State& state) {
   // Perform setup here
   char* src = new char[state.range(0)];
@@ -18,7 +10,7 @@ static void BM_memset(benchmark::State& state) {
   }
   state.SetBytesProcessed(int64_t(state.iterations()) *
                           int64_t(state.range(0)));
-  consume(src);
+  benchmark::DoNotOptimize(src);
   delete[] src;
 }
 
@@ -30,7 +22,7 @@ static void BM_simd_memset(benchmark::State& state) {
   }
   state.SetBytesProcessed(int64_t(state.iterations()) *
                           int64_t(state.range(0)));
-  consume(src);
+  benchmark::DoNotOptimize(src);
   delete[] src;
 }
 
@@ -44,8 +36,8 @@ static void BM_memcpy(benchmark::State& state) {
   }
   state.SetBytesProcessed(int64_t(state.iterations()) *
                           int64_t(state.range(0)));
-  consume(src);
-  consume(dst);
+  benchmark::DoNotOptimize(src);
+  benchmark::DoNotOptimize(dst);
   delete[] src;
   delete[] dst;
 }
@@ -59,8 +51,8 @@ static void BM_simd_memcpy(benchmark::State& state) {
   }
   state.SetBytesProcessed(int64_t(state.iterations()) *
                           int64_t(state.range(0)));
-  consume(src);
-  consume(dst);
+  benchmark::DoNotOptimize(src);
+  benchmark::DoNotOptimize(dst);
   delete[] src;
   delete[] dst;
 }
