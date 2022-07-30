@@ -15,6 +15,7 @@ BENCHMARK(std_map, n) {
   FOR_EACH_RANGE (i, 0, n) {
     map.erase(folly::to<std::string>(i));
   }
+  folly::doNotOptimizeAway(map);
 }
 
 BENCHMARK_RELATIVE(folly_F14FastMap, n) {
@@ -26,6 +27,7 @@ BENCHMARK_RELATIVE(folly_F14FastMap, n) {
   FOR_EACH_RANGE (i, 0, n) {
     map.erase(folly::to<std::string>(i));
   }
+  folly::doNotOptimizeAway(map);
 }
 
 /**
