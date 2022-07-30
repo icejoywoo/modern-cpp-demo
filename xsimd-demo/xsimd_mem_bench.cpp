@@ -2,6 +2,14 @@
 
 #include "benchmark/benchmark.h"
 
+int consume(char* src) {
+  int sum = 0;
+  for(int i = 0; i < sizeof(src); i++) {
+    sum += src[i];
+  }
+  return sum;
+}
+
 static void BM_memset(benchmark::State& state) {
   // Perform setup here
   char* src = new char[state.range(0)];
@@ -10,6 +18,7 @@ static void BM_memset(benchmark::State& state) {
   }
   state.SetBytesProcessed(int64_t(state.iterations()) *
                           int64_t(state.range(0)));
+  consume(src);
   delete[] src;
 }
 
@@ -21,6 +30,7 @@ static void BM_simd_memset(benchmark::State& state) {
   }
   state.SetBytesProcessed(int64_t(state.iterations()) *
                           int64_t(state.range(0)));
+  consume(src);
   delete[] src;
 }
 
@@ -34,6 +44,8 @@ static void BM_memcpy(benchmark::State& state) {
   }
   state.SetBytesProcessed(int64_t(state.iterations()) *
                           int64_t(state.range(0)));
+  consume(src);
+  consume(dst);
   delete[] src;
   delete[] dst;
 }
@@ -47,6 +59,8 @@ static void BM_simd_memcpy(benchmark::State& state) {
   }
   state.SetBytesProcessed(int64_t(state.iterations()) *
                           int64_t(state.range(0)));
+  consume(src);
+  consume(dst);
   delete[] src;
   delete[] dst;
 }
@@ -68,25 +82,25 @@ BENCHMARK(BM_simd_memcpy)->Range(8, 8<<10);
 ------------------------------------------------------------------------------
 Benchmark                    Time             CPU   Iterations UserCounters...
 ------------------------------------------------------------------------------
-BM_memset/8               3.72 ns         3.72 ns    253067107 bytes_per_second=2.003G/s
-BM_memset/64              2.34 ns         2.34 ns    226534778 bytes_per_second=25.4281G/s
-BM_memset/512             6.07 ns         6.07 ns    115743066 bytes_per_second=78.5751G/s
-BM_memset/4096            31.9 ns         31.9 ns     22017829 bytes_per_second=119.732G/s
-BM_memset/8192            50.1 ns         50.1 ns     13280611 bytes_per_second=152.155G/s
-BM_simd_memset/8         0.906 ns        0.906 ns    772032339 bytes_per_second=8.2201G/s
-BM_simd_memset/64         1.16 ns         1.16 ns    606626765 bytes_per_second=51.283G/s
-BM_simd_memset/512        9.25 ns         9.25 ns     75203966 bytes_per_second=51.5341G/s
-BM_simd_memset/4096       74.3 ns         74.3 ns      9453871 bytes_per_second=51.3376G/s
-BM_simd_memset/8192        148 ns          148 ns      4727068 bytes_per_second=51.5453G/s
-BM_memcpy/8               2.32 ns         2.32 ns    303156115 bytes_per_second=3.21661G/s
-BM_memcpy/64              2.02 ns         2.02 ns    345579605 bytes_per_second=29.4923G/s
-BM_memcpy/512             6.30 ns         6.30 ns    121482975 bytes_per_second=75.6569G/s
-BM_memcpy/4096            47.0 ns         47.0 ns     14899808 bytes_per_second=81.2323G/s
-BM_memcpy/8192             153 ns          153 ns      5298003 bytes_per_second=49.9432G/s
-BM_simd_memcpy/8          2.09 ns         2.09 ns    334737761 bytes_per_second=3.56888G/s
-BM_simd_memcpy/64         2.60 ns         2.60 ns    269605956 bytes_per_second=22.9635G/s
-BM_simd_memcpy/512        13.0 ns         13.0 ns     55024367 bytes_per_second=36.7717G/s
-BM_simd_memcpy/4096        104 ns          104 ns      7129309 bytes_per_second=36.561G/s
-BM_simd_memcpy/8192        197 ns          197 ns      3563015 bytes_per_second=38.8089G/s
+BM_memset/8               3.61 ns         3.61 ns    208773113 bytes_per_second=2.06246G/s
+BM_memset/64              2.06 ns         2.06 ns    297551527 bytes_per_second=28.9052G/s
+BM_memset/512             6.14 ns         6.14 ns    112106388 bytes_per_second=77.6091G/s
+BM_memset/4096            31.6 ns         31.6 ns     22361083 bytes_per_second=120.595G/s
+BM_memset/8192            51.9 ns         51.9 ns     13182020 bytes_per_second=147.04G/s
+BM_simd_memset/8          1.32 ns         1.32 ns    529820685 bytes_per_second=5.62938G/s
+BM_simd_memset/64         1.16 ns         1.16 ns    607350113 bytes_per_second=51.5569G/s
+BM_simd_memset/512        9.29 ns         9.29 ns     75694185 bytes_per_second=51.3083G/s
+BM_simd_memset/4096       79.0 ns         79.0 ns      8902666 bytes_per_second=48.316G/s
+BM_simd_memset/8192        153 ns          153 ns      4553673 bytes_per_second=49.7256G/s
+BM_memcpy/8               2.60 ns         2.60 ns    269560785 bytes_per_second=2.87001G/s
+BM_memcpy/64              2.31 ns         2.31 ns    303955742 bytes_per_second=25.8244G/s
+BM_memcpy/512             6.32 ns         6.32 ns    119255584 bytes_per_second=75.4168G/s
+BM_memcpy/4096            47.0 ns         47.0 ns     14882035 bytes_per_second=81.1167G/s
+BM_memcpy/8192             147 ns          147 ns      4252338 bytes_per_second=51.765G/s
+BM_simd_memcpy/8          1.44 ns         1.44 ns    483569016 bytes_per_second=5.16191G/s
+BM_simd_memcpy/64         2.60 ns         2.60 ns    269567984 bytes_per_second=22.8841G/s
+BM_simd_memcpy/512        12.7 ns         12.7 ns     55282551 bytes_per_second=37.452G/s
+BM_simd_memcpy/4096        100 ns          100 ns      7010548 bytes_per_second=38.0612G/s
+BM_simd_memcpy/8192        193 ns          193 ns      3629161 bytes_per_second=39.6195G/s
  */
 BENCHMARK_MAIN();
