@@ -46,6 +46,8 @@ static void BM_memcpy(benchmark::State& state) {
     }
     state.SetBytesProcessed(int64_t(state.iterations()) *
                             int64_t(state.range(0)));
+    benchmark::DoNotOptimize(src);
+    benchmark::DoNotOptimize(dst);
     delete[] src;
     delete[] dst;
 }
