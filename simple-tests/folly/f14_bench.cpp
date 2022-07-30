@@ -6,7 +6,19 @@
 #include <map>
 #include <string>
 
-BENCHMARK(std_map, n) {
+BENCHMARK(std_unordered_map, n) {
+  std::unordered_map<std::string, std::string> map;
+  FOR_EACH_RANGE (i, 0, n) {
+    map[folly::to<std::string>(i)] = folly::to<std::string>(i);
+  }
+
+  FOR_EACH_RANGE (i, 0, n) {
+    map.erase(folly::to<std::string>(i));
+  }
+  folly::doNotOptimizeAway(map);
+}
+
+BENCHMARK_RELATIVE(std_map, n) {
   std::map<std::string, std::string> map;
   FOR_EACH_RANGE (i, 0, n) {
     map[folly::to<std::string>(i)] = folly::to<std::string>(i);
@@ -32,11 +44,12 @@ BENCHMARK_RELATIVE(folly_F14FastMap, n) {
 
 /**
  * bench result:
- * ============================================================================
- * simple-tests/folly/f14_bench.cpp                 relative  time/iter  iters/s
- * ============================================================================
- * std_map                                                    322.34ns    3.10M
- * folly_F14FastMap                                 236.35%   136.38ns    7.33M
+============================================================================
+../simple-tests/folly/f14_bench.cpp             relative  time/iter  iters/s
+============================================================================
+std_unordered_map                                          155.05ns    6.45M
+std_map                                           63.85%   242.84ns    4.12M
+folly_F14FastMap                                 137.99%   112.36ns    8.90M
  */
 int main() {
   folly::runBenchmarks();
