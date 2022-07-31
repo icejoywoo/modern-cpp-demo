@@ -8,3 +8,6 @@ ENDFOREACH(FILE_PATH)
 
 add_executable(xsimd_mem_bench xsimd_mem_bench.cpp)
 target_link_libraries(xsimd_mem_bench benchmark::benchmark pthread xsimd)
+
+add_executable(xsimd_aligned_bench xsimd_aligned_bench.cpp)
+target_link_libraries(xsimd_aligned_bench benchmark::benchmark pthread xsimd)
