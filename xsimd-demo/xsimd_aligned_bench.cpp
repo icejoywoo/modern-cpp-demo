@@ -35,7 +35,7 @@ template <typename T>
 std::vector<T> gen(size_t n, T start, T delta) {
     std::vector<T> res;
     res.reserve(n);
-    for (int i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++) {
         res.push_back(i + start + delta);
     }
     return res;
@@ -83,7 +83,7 @@ static void BM_iterate_without_xsimd(benchmark::State& state) {
   std::vector<double> res(a.size());
 
   for (auto _ : state) {
-    for(std::size_t i = 0; i < size; ++i)
+    for(int64_t i = 0; i < size; ++i)
     {
       res[i] = (a[i] + b[i]) / 2;
     }
