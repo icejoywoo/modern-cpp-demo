@@ -11,3 +11,6 @@ target_link_libraries(xsimd_mem_bench benchmark::benchmark pthread xsimd)
 
 add_executable(xsimd_aligned_bench xsimd_aligned_bench.cpp)
 target_link_libraries(xsimd_aligned_bench benchmark::benchmark pthread xsimd)
+
+add_executable(lower_upper_bench LowerUpperBench.cpp)
+target_link_libraries(lower_upper_bench benchmark::benchmark pthread)
