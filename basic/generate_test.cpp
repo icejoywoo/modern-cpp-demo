@@ -27,6 +27,7 @@ TEST(AlgorithmTest, GenerateTest) {
   for (int i = 0; i < vec.size(); ++i) {
     ASSERT_EQ(std::to_string(i), vec[i]);
   }
+  print_vector(vec);
 }
 
 // https://stackoverflow.com/questions/21516575/fill-a-vector-with-random-numbers-c
