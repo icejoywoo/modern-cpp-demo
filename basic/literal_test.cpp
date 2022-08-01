@@ -47,5 +47,5 @@ Hello, World!
     // 下面的打印都是不太对的，暂时不知道如何print
     SIMPLE_PRINT(utf16, "%s");
     SIMPLE_PRINT(utf32, "%s");
-    SIMPLE_PRINT(wstr, "%s");
+    SIMPLE_PRINT(wstr, "%ls");
 }

@@ -7,7 +7,7 @@
 template <typename T>
 void print_vector(std::vector<T> vec) {
   std::stringstream ss;
-  for (int i = 0; i < vec.size(); ++i) {
+  for (std::size_t i = 0; i < vec.size(); ++i) {
     if (i != 0) {
       ss << ", ";
     }
@@ -24,7 +24,7 @@ TEST(AlgorithmTest, GenerateTest) {
   });
 
   ASSERT_EQ(100, vec.size());
-  for (int i = 0; i < vec.size(); ++i) {
+  for (std::size_t i = 0; i < vec.size(); ++i) {
     ASSERT_EQ(std::to_string(i), vec[i]);
   }
   print_vector(vec);

@@ -6,6 +6,7 @@
 #include <cstdint>
 
 // copied from velox/common/base/SimdUtil.h
+// changes: change bytes type from int32_t to size_t to remove compile warnings
 namespace simd {
 
 // Use for initialization with memset.
@@ -22,7 +23,7 @@ namespace detail {
 
 // Adds 'bytes' bytes to an address of arbitrary type.
 template <typename T>
-inline T* addBytes(T* pointer, int32_t bytes) {
+inline T* addBytes(T* pointer, size_t bytes) {
   return reinterpret_cast<T*>(reinterpret_cast<uint64_t>(pointer) + bytes);
 }
 
@@ -39,7 +40,7 @@ struct SetWord<xsimd::batch<int8_t, A>, A> {
 };
 
 template <typename T, typename A>
-inline bool setNextWord(void*& to, T data, int32_t& bytes, const A&) {
+inline bool setNextWord(void*& to, T data, size_t& bytes, const A&) {
   if (bytes >= sizeof(T)) {
     SetWord<T, A>::apply(to, data);
     bytes -= sizeof(T);
@@ -57,7 +58,7 @@ inline bool setNextWord(void*& to, T data, int32_t& bytes, const A&) {
 // memset implementation that writes at maximum width and unrolls for
 // constant values of 'bytes'.
 template <typename A = xsimd::default_arch>
-void memset(void* to, char data, int32_t bytes, const A& arch = {}) {
+void memset(void* to, char data, size_t bytes, const A& arch = {}) {
   auto v = xsimd::batch<int8_t, A>::broadcast(data);
   while (bytes >= batchByteSize(arch)) {
     if (!detail::setNextWord(to, v, bytes, arch)) {
@@ -100,7 +101,7 @@ struct CopyWord<xsimd::batch<int8_t, A>, A> {
 // Copies one element of T and advances 'to', 'from', and 'bytes' by
 // sizeof(T). Returns false if 'bytes' went to 0.
 template <typename T, typename A>
-inline bool copyNextWord(void*& to, const void*& from, int32_t& bytes) {
+inline bool copyNextWord(void*& to, const void*& from, size_t& bytes) {
   if (bytes >= sizeof(T)) {
     CopyWord<T, A>::apply(to, from);
     bytes -= sizeof(T);
@@ -118,7 +119,7 @@ inline bool copyNextWord(void*& to, const void*& from, int32_t& bytes) {
 // 'memcpy' implementation that copies at maximum width and unrolls
 // when 'bytes' is constant.
 template <typename A = xsimd::default_arch>
-void memcpy(void* to, const void* from, int32_t bytes, const A& arch = {}) {
+void memcpy(void* to, const void* from, size_t bytes, const A& arch = {}) {
   while (bytes >= batchByteSize(arch)) {
     if (!detail::copyNextWord<xsimd::batch<int8_t, A>, A>(to, from, bytes)) {
       return;

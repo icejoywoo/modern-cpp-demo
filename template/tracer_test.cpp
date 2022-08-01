@@ -44,5 +44,7 @@ TEST(TracerTest, SortTest) {
               << SortTracer::assignments() - assigned_at_start
               << " assignments\n "
               << SortTracer::comparisons() - compared_at_start
-              << " comparisons\n\n";
+              << " comparisons\n "
+              << SortTracer::destructions() - destroyed_at_start
+              << " destructions\n\n";
 }

@@ -42,7 +42,7 @@ TEST(XsimdTest, BasicTest) {
         mean({1.5, 2.5, 3.5, 4.5}, {2.5, 3.5, 4.5, 5.5}, res);
         std::stringstream ss;
         ASSERT_EQ(4, res.size());
-        for (int i = 0; i < res.size(); ++i) {
+        for (std::size_t i = 0; i < res.size(); ++i) {
           if (i != 0) {
             ss << ", ";
           }
