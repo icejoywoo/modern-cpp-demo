@@ -2,18 +2,18 @@
 
 #include "benchmark/benchmark.h"
 
-#include <cstdint>
+#include <cstring>
 #include <random>
 #include <vector>
 
 void gen(char* res, size_t n) {
   static const char* dict = "AEDFGIJKLNOPQSUWXYZabcedefghijklmnopqrstuvwxyz";
-  static const size_t dict_size = sizeof(dict) / sizeof(char);
+  static const size_t dict_size = strlen(dict);
   // First create an instance of an engine.
   std::random_device rnd_device;
   // Specify the engine and distribution.
   std::mt19937 mersenne_engine {rnd_device()};  // Generates random integers
-  std::uniform_int_distribution<int> dist {0, dict_size};
+  std::uniform_int_distribution<size_t> dist {0, dict_size};
   std::generate(res, res + n, [&dist, &mersenne_engine] {
     return dict[dist(mersenne_engine)];
   });
