@@ -2,21 +2,45 @@
 
 #include <memory>
 
+template<typename T>
+class SingletonBase {
+public:
+    // arrow & velox singleton implementation
+    static std::shared_ptr<T> &GetInstance() {
+        static std::shared_ptr<T> instance(new T);
+        return instance;
+    }
 
-class Singleton {
- public:
-  // arrow & velox singleton implementation
-  static std::shared_ptr<Singleton> GetInstance() {
-    static std::shared_ptr<Singleton> instance(new Singleton);
-    return instance;
-  }
- private:
-  Singleton() = default;
+private:
+    SingletonBase(const SingletonBase &) = delete;
+
+    SingletonBase(SingletonBase &&) = delete;
+
+    SingletonBase &operator=(const SingletonBase &) = delete;
+
+    SingletonBase &operator=(SingletonBase &&) = delete;
+
+protected:
+    SingletonBase() = default;
+
+    virtual ~SingletonBase() = default;
+};
+
+#define SINGLETON_DECLARE(T) \
+private:                     \
+    friend class SingletonBase<T>; \
+    T() = default;
+
+class Singleton : public SingletonBase<Singleton> {
+SINGLETON_DECLARE(Singleton);
+public:
+    constexpr int Get() {
+        return 42;
+    }
 };
 
 TEST(SingletonTest, BasicTest) {
-  // singleton test
-  std::shared_ptr<Singleton> singleton_a = Singleton::GetInstance();
-  std::shared_ptr<Singleton> singleton_b = Singleton::GetInstance();
-  ASSERT_EQ(singleton_a.get(), singleton_b.get());
+    // singleton test
+    ASSERT_EQ(Singleton::GetInstance(), Singleton::GetInstance());
+    ASSERT_EQ(42, Singleton::GetInstance()->Get());
 }
