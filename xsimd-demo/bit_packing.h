@@ -54,9 +54,7 @@ int get_col(uint64_t board, int col) {
 }
 
 int get_col(uint64_t board) {
-  uint64_t column = (board << 7) & column_mask;
-  column *= magic;
-  return (column >> 56) & 0xff;
+  return get_col(board, 7);
 }
 
 class Multiplication {
