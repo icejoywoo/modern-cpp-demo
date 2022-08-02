@@ -14,3 +14,7 @@ target_link_libraries(xsimd_aligned_bench benchmark::benchmark pthread xsimd)
 
 add_executable(lower_upper_bench LowerUpperBench.cpp)
 target_link_libraries(lower_upper_bench benchmark::benchmark pthread)
+
+add_executable(bit_packing_bench bit_packing_bench.cpp)
+target_link_libraries(bit_packing_bench benchmark::benchmark pthread)
+target_compile_options(bit_packing_bench PRIVATE -fpermissive)
