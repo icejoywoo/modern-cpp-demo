@@ -5,6 +5,8 @@
 static void BM_memset(benchmark::State& state) {
   // Perform setup here
   char* src = new char[state.range(0)];
+  // change bytes value
+  memset(src, simd::kNullByte, state.range(0));
   for (auto _ : state) {
     memset(src, simd::kNotNullByte, state.range(0));
   }
@@ -17,6 +19,8 @@ static void BM_memset(benchmark::State& state) {
 static void BM_simd_memset(benchmark::State& state) {
   // Perform setup here
   char* src = new char[state.range(0)];
+  // change bytes value
+  memset(src, simd::kNullByte, state.range(0));
   for (auto _ : state) {
     simd::memset(src, simd::kNotNullByte, state.range(0));
   }
