@@ -40,6 +40,51 @@ class Simple {
   }
 };
 
+// The cool way (using the multiplication technique)
+// https://stackoverflow.com/questions/8461126/how-to-create-a-byte-out-of-8-bool-values-and-vice-versa
+// https://stackoverflow.com/questions/14537831/isolate-specific-row-column-diagonal-from-a-64-bit-number/14539116#14539116
+
+const uint64_t column_mask = 0x8080808080808080ull;
+const uint64_t magic = 0x2040810204081ull;
+
+int get_col(uint64_t board, int col) {
+  uint64_t column = (board << col) & column_mask;
+  column *= magic;
+  return (column >> 56) & 0xff;
+}
+
+int get_col(uint64_t board) {
+  uint64_t column = (board << 7) & column_mask;
+  column *= magic;
+  return (column >> 56) & 0xff;
+}
+
+class Multiplication {
+ public:
+  static void encodeAsBits(uint8_t* input, int input_length,
+                           uint8_t* output) {
+    int idx = 0;
+
+    int batch_size = input_length & ~0b111;
+    int left_size = input_length & 0b111;
+
+    for (int position = 0; position < batch_size; position += 8) {
+      output[idx++] = get_col(*reinterpret_cast<uint64_t*>(&input[position]));
+    }
+
+    // write last null bits
+    if (left_size > 0) {
+      unsigned char value = 0;
+      int mask = 0b10000000;
+      for (int position = batch_size; position < input_length; position++) {
+        value |= input[position] == 1 ? mask : 0;
+        mask >>= 1;
+      }
+      output[idx] = value;
+    }
+  }
+};
+
 struct bool8 {
   uint8_t val0 : 1;
   uint8_t val1 : 1;

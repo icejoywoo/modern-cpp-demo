@@ -11,6 +11,8 @@ TEST(BitPackingTest, BasicTest) {
     uint8_t output[1] = {0};
     Simple::encodeAsBits(input, sizeof(input) / sizeof(char), output);
     EXPECT_EQ(expected[0], output[0]);
+    Multiplication::encodeAsBits(input, sizeof(input) / sizeof(char), output);
+    EXPECT_EQ(expected[0], output[0]);
     PackedStruct::encodeAsBits(input, sizeof(input) / sizeof(char), output);
     EXPECT_EQ(expected[0], output[0]);
 #ifdef __SSE2__
@@ -24,6 +26,9 @@ TEST(BitPackingTest, BasicTest) {
     uint8_t expected[] = {0b01011010, 0b01011010};
     uint8_t output[2] = {0};
     Simple::encodeAsBits(input, sizeof(input) / sizeof(char), output);
+    EXPECT_EQ(expected[0], output[0]);
+    EXPECT_EQ(expected[1], output[1]);
+    Multiplication::encodeAsBits(input, sizeof(input) / sizeof(char), output);
     EXPECT_EQ(expected[0], output[0]);
     EXPECT_EQ(expected[1], output[1]);
     PackedStruct::encodeAsBits(input, sizeof(input) / sizeof(char), output);
@@ -41,6 +46,9 @@ TEST(BitPackingTest, BasicTest) {
     uint8_t expected[] = {0b01011010, 0b01000000};
     uint8_t output[2] = {0};
     Simple::encodeAsBits(input, sizeof(input) / sizeof(char), output);
+    EXPECT_EQ(expected[0], output[0]);
+    EXPECT_EQ(expected[1], output[1]);
+    Multiplication::encodeAsBits(input, sizeof(input) / sizeof(char), output);
     EXPECT_EQ(expected[0], output[0]);
     EXPECT_EQ(expected[1], output[1]);
     PackedStruct::encodeAsBits(input, sizeof(input) / sizeof(char), output);

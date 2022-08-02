@@ -32,6 +32,21 @@ static void simple(benchmark::State& state) {
   delete[] output;
 }
 
+static void multiplication(benchmark::State& state) {
+  size_t size = state.range(0);
+  auto* input = new uint8_t[size];
+  gen(input, size);
+  size_t output_len = size / 8 + 1;
+  auto* output = new uint8_t[output_len];
+  for (auto _ : state) {
+    Multiplication::encodeAsBits(input, size, output);
+  }
+  benchmark::DoNotOptimize(input);
+  benchmark::DoNotOptimize(output);
+  delete[] input;
+  delete[] output;
+}
+
 static void packed_struct(benchmark::State& state) {
   size_t size = state.range(0);
   auto* input = new uint8_t[size];
@@ -49,6 +64,7 @@ static void packed_struct(benchmark::State& state) {
 
 // Register the function as a benchmark
 BENCHMARK(simple)->Range(8, 8<<12);
+BENCHMARK(multiplication)->Range(8, 8<<12);
 BENCHMARK(packed_struct)->Range(8, 8<<12);
 
 #ifdef __SSE2__
