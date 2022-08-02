@@ -17,4 +17,9 @@ target_link_libraries(lower_upper_bench benchmark::benchmark pthread)
 
 add_executable(bit_packing_bench bit_packing_bench.cpp)
 target_link_libraries(bit_packing_bench benchmark::benchmark pthread)
-target_compile_options(bit_packing_bench PRIVATE -fpermissive)
+# https://stackoverflow.com/questions/8843818/what-does-the-fpermissive-flag-do
+# -fpermissive
+# > Downgrade some diagnostics about nonconformant code from errors to warnings.
+# > Thus, using -fpermissive will allow some nonconforming code to compile.
+# Bottom line: don't use it unless you know what you are doing!
+#target_compile_options(bit_packing_bench PRIVATE -fpermissive)
