@@ -1,8 +1,8 @@
 #include "folly/Benchmark.h"
 #include "folly/container/Foreach.h"
 #include "folly/json.h"
-
 #include "simdjson.h"
+#include "nlohmann/json.hpp"
 
 constexpr const char* test_json = R"({
     "created_at": "Sun Aug 31 00:29:15 +0000 2014",
@@ -42,6 +42,15 @@ BENCHMARK_RELATIVE(simd_json_without_prepare, n) {
   FOR_EACH_RANGE (i, 0, n) {
     simdjson::ondemand::document doc = parser.iterate(json); // parse a string
     text = doc["text"].get_string();
+  }
+  folly::doNotOptimizeAway(text);
+}
+
+BENCHMARK_RELATIVE(nlohmann_json, n) {
+  std::string text;
+  FOR_EACH_RANGE (i, 0, n) {
+    nlohmann::json json = nlohmann::json::parse(test_json);
+    text = json["text"];
   }
   folly::doNotOptimizeAway(text);
 }
