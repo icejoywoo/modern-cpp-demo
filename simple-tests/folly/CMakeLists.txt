@@ -6,3 +6,6 @@ ENDFOREACH(FILE_PATH)
 
 add_executable(f14_bench f14_bench.cpp)
 target_link_libraries(f14_bench PRIVATE Folly::folly Folly::follybenchmark)
+
+add_executable(json_bench json_bench.cpp)
+target_link_libraries(json_bench PRIVATE Folly::folly Folly::follybenchmark simdjson::simdjson)
