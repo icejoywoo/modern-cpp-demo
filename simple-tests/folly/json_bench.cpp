@@ -48,7 +48,12 @@ BENCHMARK_RELATIVE(simd_json_without_prepare, n) {
 
 /**
  * bench result:
-
+============================================================================
+../simple-tests/folly/json_bench.cpp            relative  time/iter  iters/s
+============================================================================
+folly_json                                                  19.76us   50.60K
+simd_json                                       6034.68%   327.49ns    3.05M
+simd_json_without_prepare                       6427.07%   307.50ns    3.25M
  */
 int main() {
   folly::runBenchmarks();
