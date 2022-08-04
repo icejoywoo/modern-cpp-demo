@@ -19,9 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.0.0
-      - name: Install Folly
-        run: git clone https://github.com/facebook/folly.git && cd folly && ./build.sh
+        uses: actions/checkout@v3
+        with:
+          path: ./modern-cpp-demo
+      - name: Install Deps
+        run: bash ./modern-cpp-demo/scripts/setup-ubuntu.sh
       - name: Build project
         uses: nicledomaS/cmake_build_action@v1.4
         with:
