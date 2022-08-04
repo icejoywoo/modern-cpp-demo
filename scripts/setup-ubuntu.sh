@@ -11,9 +11,7 @@ source $SCRIPTDIR/setup-helper-functions.sh
 # are the same size.
 FB_OS_VERSION=v2022.03.14.00
 NPROC=$(getconf _NPROCESSORS_ONLN)
-DEPENDENCY_DIR=${DEPENDENCY_DIR:-${SCRIPTDIR}/dependency_dir}
-
-mkdir -p ${DEPENDENCY_DIR}
+DEPENDENCY_DIR=${DEPENDENCY_DIR:-$(pwd)}
 
 # Install all velox and folly dependencies.
 sudo apt install -y \
