@@ -6,6 +6,7 @@ env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
   GENERATOR: Ninja
+  PARALLEL: 16
 
 jobs:
   # https://github.com/actions/starter-workflows/blob/main/ci/cmake.yml
@@ -27,7 +28,7 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j${{env.PARALLEL}}
 
     - name: Test
       working-directory: ${{github.workspace}}/build
@@ -53,7 +54,7 @@ jobs:
 
       - name: Build
         # Build your program with the given configuration
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j${{env.PARALLEL}}
 
       - name: Test
         working-directory: ${{github.workspace}}/build
