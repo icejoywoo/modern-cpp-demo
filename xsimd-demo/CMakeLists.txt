@@ -23,3 +23,6 @@ target_link_libraries(bit_packing_bench benchmark::benchmark pthread)
 # > Thus, using -fpermissive will allow some nonconforming code to compile.
 # Bottom line: don't use it unless you know what you are doing!
 #target_compile_options(bit_packing_bench PRIVATE -fpermissive)
+
+add_executable(restrict_bench restrict_bench.cpp)
+target_link_libraries(restrict_bench benchmark::benchmark pthread)
