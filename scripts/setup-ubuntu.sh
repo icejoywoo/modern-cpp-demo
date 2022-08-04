@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# copied from https://github.com/facebookincubator/velox/blob/main/scripts/setup-ubuntu.sh
+
 # Minimal setup for Ubuntu 20.04.
 set -eufx -o pipefail
 SCRIPTDIR=$(dirname "${BASH_SOURCE[0]}")
@@ -9,7 +11,9 @@ source $SCRIPTDIR/setup-helper-functions.sh
 # are the same size.
 FB_OS_VERSION=v2022.03.14.00
 NPROC=$(getconf _NPROCESSORS_ONLN)
-DEPENDENCY_DIR=${DEPENDENCY_DIR:-$(pwd)}
+DEPENDENCY_DIR=${DEPENDENCY_DIR:-${SCRIPTDIR}/dependency_dir}
+
+mkdir -p ${DEPENDENCY_DIR}
 
 # Install all velox and folly dependencies.
 sudo apt install -y \
