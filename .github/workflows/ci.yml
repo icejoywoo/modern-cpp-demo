@@ -23,7 +23,7 @@ jobs:
         with:
           path: ./modern-cpp-demo
       - name: Install Deps
-        run: bash ./modern-cpp-demo/scripts/setup-ubuntu.sh
+        run: sudo bash ./modern-cpp-demo/scripts/setup-ubuntu.sh
       - name: Build project
         uses: nicledomaS/cmake_build_action@v1.4
         with:
