@@ -37,14 +37,9 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -g -fPIC ")
 
 option(RELEASE_ENABLE_O3 "Build with -O3" OFF)
 
-# debug with memory sanitizer
-#if (CMAKE_BUILD_TYPE MATCHES Debug)
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O1 -fsanitize=address -fno-omit-frame-pointer ")
-#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O1 -fsanitize=address -fno-omit-frame-pointer ")
-#else()
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
-#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
-#endif()
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    set(SIMDJSON_DEVELOPER_MODE ON)
+endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -fsanitize=address -fno-omit-frame-pointer")
 set(CMAKE_C_FLAGS_DEBUG "-g -O0 -fsanitize=address -fno-omit-frame-pointer")
@@ -56,6 +51,9 @@ else()
     set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 endif()
+
+# static library
+set(BUILD_SHARED_LIBS OFF)
 
 add_subdirectory(contrib EXCLUDE_FROM_ALL)
 
@@ -70,4 +68,4 @@ add_subdirectory(template)
 add_subdirectory(simple-tests)
 add_subdirectory(xsimd-demo)
 
-add_subdirectory(third_party)
+add_subdirectory(third_party EXCLUDE_FROM_ALL)
