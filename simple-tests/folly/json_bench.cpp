@@ -61,8 +61,9 @@ BENCHMARK_RELATIVE(poco_json, n) {
     Poco::JSON::Parser parser;
     parser.reset();
     FOR_EACH_RANGE (i, 0, n) {
-        Poco::Dynamic::Var json = parser.parse(test_json);
-        text = json["text"].toString();
+        Poco::Dynamic::Var result = parser.parse(test_json);
+        Poco::JSON::Object::Ptr pObj = result.extract<Poco::JSON::Object::Ptr>();
+        text = pObj->get("text").toString();
     }
     folly::doNotOptimizeAway(text);
 }
