@@ -26,3 +26,6 @@ target_link_libraries(bit_packing_bench benchmark::benchmark pthread)
 
 add_executable(restrict_bench restrict_bench.cpp)
 target_link_libraries(restrict_bench benchmark::benchmark pthread)
+
+add_executable(crc32_bench crc32_bench.cpp)
+target_link_libraries(crc32_bench benchmark::benchmark pthread)
