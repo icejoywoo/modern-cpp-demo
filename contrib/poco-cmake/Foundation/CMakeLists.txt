@@ -226,7 +226,8 @@ target_link_libraries (_poco_foundation
     PRIVATE
         Poco::Foundation::PCRE
         ch_contrib::zlib
-        ch_contrib::lz4)
+        ch_contrib::lz4
+        pthread)
 
 if(OS_DARWIN AND ARCH_AARCH64)
     target_compile_definitions (_poco_foundation
