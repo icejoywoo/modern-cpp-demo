@@ -57,6 +57,8 @@ else()
     set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 endif()
 
+add_subdirectory(contrib EXCLUDE_FROM_ALL)
+
 include_directories(.)
 include_directories(third_party)
 

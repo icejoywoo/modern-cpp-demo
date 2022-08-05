@@ -3,6 +3,7 @@
 #include "folly/json.h"
 #include "simdjson.h"
 #include "nlohmann/json.hpp"
+#include "Poco/JSON/Parser.h"
 
 constexpr const char* test_json = R"({
     "created_at": "Sun Aug 31 00:29:15 +0000 2014",
@@ -53,6 +54,17 @@ BENCHMARK_RELATIVE(nlohmann_json, n) {
     text = json["text"];
   }
   folly::doNotOptimizeAway(text);
+}
+
+BENCHMARK_RELATIVE(poco_json, n) {
+    std::string text;
+    Poco::JSON::Parser parser;
+    parser.reset();
+    FOR_EACH_RANGE (i, 0, n) {
+        Poco::Dynamic::Var json = parser.parse(test_json);
+        text = json["text"].toString();
+    }
+    folly::doNotOptimizeAway(text);
 }
 
 /**

@@ -12,6 +12,7 @@ add_executable(nanobench_test nanobench_test.cpp)
 target_link_libraries(nanobench_test nanobench)
 
 add_subdirectory(boost)
+add_subdirectory(poco)
 
 find_package(folly CONFIG)
 if (folly_FOUND)
