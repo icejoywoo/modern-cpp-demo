@@ -53,7 +53,7 @@ function(add_contrib cmake_folder)
 endfunction()
 
 find_package(OpenSSL)
-if (OpenSSL_Found)
+if (OPENSSL_FOUND)
     message (STATUS "set ENABLE_SSL")
     set (ENABLE_SSL 1)
 endif()
