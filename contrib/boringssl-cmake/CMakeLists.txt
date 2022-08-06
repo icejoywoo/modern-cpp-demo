@@ -38,6 +38,12 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CLANG)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-common -std=c11")
 endif()
 
+# fix gcc does not have __has_builtin
+if(CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10.0)
+    message(STATUS "set definition: -D__has_builtin=")
+    add_definitions(-D__has_builtin=)
+endif()
+
 # pthread_rwlock_t requires a feature flag.
 if(NOT WIN32)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_XOPEN_SOURCE=700")
