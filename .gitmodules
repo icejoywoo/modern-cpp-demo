@@ -37,3 +37,6 @@
 [submodule "contrib/protobuf"]
 	path = contrib/protobuf
 	url = https://github.com/ClickHouse/protobuf.git
+[submodule "contrib/rapidjson"]
+	path = contrib/rapidjson
+	url = https://github.com/ClickHouse/rapidjson

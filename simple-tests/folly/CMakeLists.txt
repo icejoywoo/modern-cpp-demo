@@ -12,4 +12,5 @@ target_link_libraries(json_bench PRIVATE
         Folly::folly
         Folly::follybenchmark
         simdjson::simdjson
-        Poco::JSON)
+        Poco::JSON
+        ch_contrib::rapidjson)

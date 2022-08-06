@@ -4,6 +4,7 @@
 #include "simdjson.h"
 #include "nlohmann/json.hpp"
 #include "Poco/JSON/Parser.h"
+#include "rapidjson/document.h"
 
 constexpr const char* test_json = R"({
     "created_at": "Sun Aug 31 00:29:15 +0000 2014",
@@ -64,6 +65,16 @@ BENCHMARK_RELATIVE(poco_json, n) {
         Poco::Dynamic::Var result = parser.parse(test_json);
         Poco::JSON::Object::Ptr pObj = result.extract<Poco::JSON::Object::Ptr>();
         text = pObj->get("text").toString();
+    }
+    folly::doNotOptimizeAway(text);
+}
+
+BENCHMARK_RELATIVE(rapidjson_json, n) {
+    std::string text;
+    rapidjson::Document document;
+    FOR_EACH_RANGE (i, 0, n) {
+        document.Parse(test_json);
+        text = document["text"].GetString();
     }
     folly::doNotOptimizeAway(text);
 }
