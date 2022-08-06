@@ -5,7 +5,7 @@ if(NOT ENABLE_PROTOBUF)
   return()
 endif()
 
-set(Protobuf_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/contrib/protobuf/src")
+set(Protobuf_INCLUDE_DIR "${BASE_PROJECT_SOURCE_DIR}/contrib/protobuf/src")
 if(OS_FREEBSD AND SANITIZE STREQUAL "address")
   # ../contrib/protobuf/src/google/protobuf/arena_impl.h:45:10: fatal error: 'sanitizer/asan_interface.h' file not found
   # #include <sanitizer/asan_interface.h>
@@ -17,8 +17,8 @@ if(OS_FREEBSD AND SANITIZE STREQUAL "address")
   endif()
 endif()
 
-set(protobuf_source_dir "${PROJECT_SOURCE_DIR}/contrib/protobuf")
-set(protobuf_binary_dir "${PROJECT_SOURCE_DIR}/contrib/protobuf")
+set(protobuf_source_dir "${BASE_PROJECT_SOURCE_DIR}/contrib/protobuf")
+set(protobuf_binary_dir "${BASE_PROJECT_BINARY_DIR}/contrib/protobuf")
 
 
 add_definitions(-DGOOGLE_PROTOBUF_CMAKE_BUILD)

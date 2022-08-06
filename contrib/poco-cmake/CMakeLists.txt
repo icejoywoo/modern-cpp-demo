@@ -1,4 +1,4 @@
-set (LIBRARY_DIR "${PROJECT_SOURCE_DIR}/contrib/poco")
+set (LIBRARY_DIR "${BASE_PROJECT_SOURCE_DIR}/contrib/poco")
 
 add_subdirectory (Crypto)
 add_subdirectory (Data)

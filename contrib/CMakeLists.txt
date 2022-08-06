@@ -49,9 +49,8 @@ function(add_contrib cmake_folder)
     add_subdirectory (${cmake_folder})
 endfunction()
 
-set(PROJECT_SOURCE_DIR ${modern-cpp-demo_SOURCE_DIR})
 set(BASE_PROJECT_SOURCE_DIR ${modern-cpp-demo_SOURCE_DIR})
-set(PROJECT_BINARY_DIR ${modern-cpp-demo_BINARY_DIR})
+set(BASE_PROJECT_BINARY_DIR ${modern-cpp-demo_BINARY_DIR})
 option(ENABLE_LIBRARIES "Enable all external libraries by default" ON)
 
 add_contrib (boringssl-cmake boringssl)

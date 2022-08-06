@@ -11,8 +11,8 @@ if(NOT ENABLE_GRPC)
   return()
 endif()
 
-set(_gRPC_SOURCE_DIR "${PROJECT_SOURCE_DIR}/contrib/grpc")
-set(_gRPC_BINARY_DIR "${PROJECT_BINARY_DIR}/contrib/grpc")
+set(_gRPC_SOURCE_DIR "${BASE_PROJECT_SOURCE_DIR}/contrib/grpc")
+set(_gRPC_BINARY_DIR "${BASE_PROJECT_BINARY_DIR}/contrib/grpc")
 
 # Use re2 from ClickHouse contrib, not from gRPC third_party.
 set(gRPC_RE2_PROVIDER "clickhouse" CACHE STRING "" FORCE)
