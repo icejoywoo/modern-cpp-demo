@@ -17,7 +17,7 @@ add_executable(greeter_client greeter_client.cpp)
 target_link_libraries(greeter_client PRIVATE _hello_proto)
 
 add_executable(greeter_server greeter_server.cpp)
-target_link_libraries(greeter_server PRIVATE _hello_proto)
+target_link_libraries(greeter_server PRIVATE _hello_proto ch_contrib::grpc_reflection)
 
 FILE(GLOB_RECURSE SRC_FILES "*_test.cc" "*_test.cpp" "*Test.cc" "*Test.cpp")
 FOREACH(FILE_PATH ${SRC_FILES})

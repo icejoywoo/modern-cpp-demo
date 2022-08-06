@@ -77,6 +77,9 @@ endif()
 # We don't want to build C# extensions.
 set(gRPC_BUILD_CSHARP_EXT OFF)
 
+# fix: grpc cmake function: protobuf_generate_grpc_cpp
+set(_gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR ${BASE_PROJECT_SOURCE_DIR}/contrib/protobuf/src)
+
 add_subdirectory("${_gRPC_SOURCE_DIR}" "${_gRPC_BINARY_DIR}")
 
 # The contrib/grpc/CMakeLists.txt redefined the PROTOBUF_GENERATE_GRPC_CPP() function for its own purposes,
@@ -96,3 +99,7 @@ add_library(_ch_contrib_grpc INTERFACE)
 target_link_libraries(_ch_contrib_grpc INTERFACE ${gRPC_LIBRARIES})
 target_include_directories(_ch_contrib_grpc SYSTEM INTERFACE ${gRPC_INCLUDE_DIRS})
 add_library(ch_contrib::grpc ALIAS _ch_contrib_grpc)
+
+add_library(_ch_contrib_grpc_reflection INTERFACE)
+target_link_libraries(_ch_contrib_grpc_reflection INTERFACE grpc++_reflection)
+add_library(ch_contrib::grpc_reflection ALIAS _ch_contrib_grpc_reflection)

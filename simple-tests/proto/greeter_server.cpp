@@ -54,7 +54,7 @@ void RunServer() {
     GreeterServiceImpl service;
 
     grpc::EnableDefaultHealthCheckService(true);
-//    grpc::reflection::InitProtoReflectionServerBuilderPlugin();
+    grpc::reflection::InitProtoReflectionServerBuilderPlugin();
     ServerBuilder builder;
     // Listen on the given address without any authentication mechanism.
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
