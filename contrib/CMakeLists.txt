@@ -53,13 +53,15 @@ set(BASE_PROJECT_SOURCE_DIR ${modern-cpp-demo_SOURCE_DIR})
 set(BASE_PROJECT_BINARY_DIR ${modern-cpp-demo_BINARY_DIR})
 option(ENABLE_LIBRARIES "Enable all external libraries by default" ON)
 
+add_contrib (abseil-cpp-cmake abseil-cpp)
 add_contrib (boringssl-cmake boringssl)
 add_contrib (lz4-cmake lz4)
 add_contrib (zlib-ng-cmake zlib-ng)
 add_contrib (poco-cmake poco)
-
+add_contrib (grpc-cmake grpc)
 add_contrib (protobuf-cmake protobuf)
 add_contrib (rapidjson-cmake rapidjson)
+add_contrib (re2-cmake re2)
 
 # Put all targets defined here and in subdirectories under "contrib/<immediate-subdir>" folders in GUI-based IDEs.
 # Some of third-party projects may override CMAKE_FOLDER or FOLDER property of their targets, so they would not appear
