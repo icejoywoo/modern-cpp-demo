@@ -37,9 +37,9 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -g -fPIC ")
 
 option(RELEASE_ENABLE_O3 "Build with -O3" OFF)
 
-if (CMAKE_BUILD_TYPE MATCHES Debug)
-    set(SIMDJSON_DEVELOPER_MODE ON)
-endif()
+#if (CMAKE_BUILD_TYPE MATCHES Debug)
+#    set(SIMDJSON_DEVELOPER_MODE ON)
+#endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -fsanitize=address -fno-omit-frame-pointer")
 set(CMAKE_C_FLAGS_DEBUG "-g -O0 -fsanitize=address -fno-omit-frame-pointer")
