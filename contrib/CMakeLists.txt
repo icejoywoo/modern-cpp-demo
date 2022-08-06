@@ -49,15 +49,12 @@ function(add_contrib cmake_folder)
     add_subdirectory (${cmake_folder})
 endfunction()
 
-find_package(OpenSSL)
-if (OPENSSL_FOUND)
-    message (STATUS "set ENABLE_SSL")
-    set (ENABLE_SSL 1)
-endif()
-
 set(PROJECT_SOURCE_DIR ${modern-cpp-demo_SOURCE_DIR})
+set(BASE_PROJECT_SOURCE_DIR ${modern-cpp-demo_SOURCE_DIR})
+set(PROJECT_BINARY_DIR ${modern-cpp-demo_BINARY_DIR})
 option(ENABLE_LIBRARIES "Enable all external libraries by default" ON)
 
+add_contrib (boringssl-cmake boringssl)
 add_contrib (lz4-cmake lz4)
 add_contrib (zlib-ng-cmake zlib-ng)
 add_contrib (poco-cmake poco)
