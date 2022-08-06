@@ -1,6 +1,6 @@
 # lz4 is the main compression method, cannot be disabled.
 
-set (LIBRARY_DIR "${modern-cpp-demo_SOURCE_DIR}/contrib/lz4")
+set (LIBRARY_DIR "${PROJECT_SOURCE_DIR}/contrib/lz4")
 set (SRCS
     "${LIBRARY_DIR}/lib/lz4.c"
     "${LIBRARY_DIR}/lib/lz4hc.c"

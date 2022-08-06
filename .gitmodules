@@ -34,3 +34,6 @@
 [submodule "contrib/poco"]
 	path = contrib/poco
 	url = https://github.com/ClickHouse/poco.git
+[submodule "contrib/protobuf"]
+	path = contrib/protobuf
+	url = https://github.com/ClickHouse/protobuf.git

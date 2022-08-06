@@ -13,6 +13,7 @@ target_link_libraries(nanobench_test nanobench)
 
 add_subdirectory(boost)
 add_subdirectory(poco)
+add_subdirectory(proto)
 
 find_package(folly CONFIG)
 if (folly_FOUND)
