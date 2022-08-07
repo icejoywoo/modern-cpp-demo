@@ -59,13 +59,14 @@ inline bool setNextWord(void*& to, T data, size_t& bytes, const A&) {
 // constant values of 'bytes'.
 template <typename A = xsimd::default_arch>
 void memset(void* to, char data, size_t bytes, const A& arch = {}) {
-  auto v = xsimd::batch<int8_t, A>::broadcast(data);
+  xsimd::batch<int8_t, A> v = xsimd::batch<int8_t, A>::broadcast(data);
   while (bytes >= batchByteSize(arch)) {
     if (!detail::setNextWord(to, v, bytes, arch)) {
       return;
     }
   }
-  int64_t data64 = *reinterpret_cast<int64_t*>(&v);
+  // fix warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+  int64_t data64 = *reinterpret_cast<int64_t*>((xsimd::batch<int8_t, A>*)(&v));
   while (bytes >= sizeof(int64_t)) {
     if (!detail::setNextWord<int64_t>(to, data64, bytes, arch)) {
       return;
