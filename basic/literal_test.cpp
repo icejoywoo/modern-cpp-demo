@@ -43,9 +43,13 @@ Hello, World!
     char16_t utf32[] = uR"(你好世界)";
     wchar_t wstr[] = LR"(你好世界)";
 
+    // disable warnings: https://www.fluentcpp.com/2019/08/30/how-to-disable-a-warning-in-cpp/
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat="
     SIMPLE_PRINT(utf8, "%s");
     // 下面的打印都是不太对的，暂时不知道如何print
     SIMPLE_PRINT(utf16, "%s");
     SIMPLE_PRINT(utf32, "%s");
     SIMPLE_PRINT(wstr, "%ls");
+#pragma GCC diagnostic pop
 }

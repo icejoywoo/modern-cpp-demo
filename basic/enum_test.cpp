@@ -17,8 +17,11 @@ TEST(EnumTest, BasicTest) {
 
     School x = student;
     Company y = manager;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wenum-compare"
     EXPECT_TRUE(x >= y);
     EXPECT_TRUE(student >= manager);
+#pragma GCC diagnostic push
     EXPECT_EQ(2, student);
 }
 
