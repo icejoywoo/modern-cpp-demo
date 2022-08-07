@@ -52,6 +52,7 @@ endfunction()
 set(BASE_PROJECT_SOURCE_DIR ${modern-cpp-demo_SOURCE_DIR})
 set(BASE_PROJECT_BINARY_DIR ${modern-cpp-demo_BINARY_DIR})
 option(ENABLE_LIBRARIES "Enable all external libraries by default" ON)
+option(USE_STATIC_LIBRARIES "Choose to build static or shared library for c-ares in grpc" ON)
 
 add_contrib (abseil-cpp-cmake abseil-cpp)
 add_contrib (boringssl-cmake boringssl)
