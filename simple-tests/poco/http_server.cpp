@@ -16,6 +16,20 @@ using namespace std;
 using namespace Poco::Net;
 using namespace Poco::Util;
 
+class NotFoundHandler : public HTTPRequestHandler
+{
+public:
+    virtual void handleRequest(HTTPServerRequest &req, HTTPServerResponse &resp)
+    {
+        HTTPResponse::HTTPStatus status(HTTPResponse::HTTP_NOT_FOUND);
+        resp.setStatus(status);
+        resp.setContentType("text/html");
+
+        ostream & out = resp.send();
+        out << "<h1>" << HTTPResponse::getReasonForStatus(status) << "</h1>";
+    }
+};
+
 class MyRequestHandler : public HTTPRequestHandler
 {
 public:
@@ -56,6 +70,7 @@ public:
         const Poco::URI uri(request.getURI());
         // http://localhost:8088/hello?name=John
         // return: Hello, John!
+        // TODO: utf8 string 中文乱码
         if (uri.getPath() == "/hello") {
             const Poco::URI::QueryParameters queryParms = uri.getQueryParameters();
             const char* paramName = "name";
@@ -69,8 +84,10 @@ public:
                 name = "Unknown";
             }
             return new HelloRequestHandler(name);
-        } else {
+        } else if (uri.getPath() == "/" || uri.getPath() == "/index") {
             return new MyRequestHandler;
+        } else {
+            return new NotFoundHandler;
         }
     }
 };
@@ -90,8 +107,6 @@ protected:
     }
 };
 
-int main(int argc, char **argv)
-{
-    MyServerApp app;
-    return app.run(argc, argv);
-}
+// https://marcoscleison.xyz/post/how-to-create-a-simple-http-server-in-c++/
+// Macros to setup maim function to run as app or deamon (service in windows)
+POCO_SERVER_MAIN(MyServerApp);
