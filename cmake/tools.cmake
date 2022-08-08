@@ -28,7 +28,7 @@ if (COMPILER_GCC)
         message (FATAL_ERROR "Compilation with GCC version ${CMAKE_CXX_COMPILER_VERSION} is unsupported, the minimum required version is ${GCC_MINIMUM_VERSION}.")
     endif ()
 
-    message (WARNING "Compilation with GCC is unsupported. Please use Clang instead.")
+    #message (WARNING "Compilation with GCC is unsupported. Please use Clang instead.")
 
 elseif (COMPILER_CLANG)
     if (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang")
@@ -75,7 +75,7 @@ if (OS_LINUX AND NOT LINKER_NAME)
 
     if (NOT LINKER_NAME)
         if (GOLD_PATH)
-            message (WARNING "Linking with gold is not recommended. Please use lld.")
+            #message (WARNING "Linking with gold is not recommended. Please use lld.")
             if (COMPILER_GCC)
                 set (LINKER_NAME "gold")
             else ()
