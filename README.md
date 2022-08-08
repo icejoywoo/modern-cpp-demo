@@ -3,6 +3,18 @@ Modern Cpp Demo
 
 demos for learning modern cpp (since c++11)
 
+tested on MacOS and Linux (Ubuntu)
+
+## contrib
+
+contrib folder is copied from ClickHouse, do some tiny changes according to my requirements.
+* jemalloc
+* grpc
+* protobuf
+* boringssl: google fork of openssl
+* rapidjson
+* poco c++ library
+* etc.
 
 ## third-party submodules
 

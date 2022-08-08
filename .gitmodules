@@ -52,3 +52,6 @@
 [submodule "contrib/re2"]
 	path = contrib/re2
 	url = https://github.com/google/re2.git
+[submodule "contrib/jemalloc"]
+	path = contrib/jemalloc
+	url = https://github.com/jemalloc/jemalloc.git

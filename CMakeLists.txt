@@ -11,11 +11,16 @@ find_program(CPPLINT_BIN
 if (cpplint_FOUND)
     set(CMAKE_CXX_CPPLINT "cpplint;--exclude=third_party")
 else()
-    message(status "cpplint is not found. Please install cpplint to check code style.")
+    message(STATUS "cpplint is not found. Please install cpplint to check code style.")
 endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 include(cmake/common.cmake)
+
+include(cmake/arch.cmake)
+include(cmake/target.cmake)
+include(cmake/tools.cmake)
+include(cmake/sanitize.cmake)
 
 # refer https://github.com/facebookincubator/velox/blob/main/CMakeLists.txt
 execute_process(
@@ -28,7 +33,7 @@ execute_process(
 if(COMMAND_STATUS EQUAL "1")
     message(FATAL_ERROR "Unable to determine compiler flags!")
 endif()
-message("Setting CMAKE_CXX_FLAGS=${SCRIPT_CXX_FLAGS}")
+message(STATUS "Setting CMAKE_CXX_FLAGS=${SCRIPT_CXX_FLAGS}")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SCRIPT_CXX_FLAGS}")
 
