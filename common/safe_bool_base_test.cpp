@@ -18,9 +18,22 @@ class TruthTestableCRTP : public SafeBool<TruthTestableCRTP> {
   }
 };
 
+// simplest way since c++ 11
+// explicit operator bool
+class TruthTestable {
+ public:
+  explicit TruthTestable(bool ok) : ok_{ok} {}
+  explicit operator bool() const { return ok_; }
+
+ private:
+  bool ok_;
+};
+
 TEST(SafeBoolTest, BasicTest) {
     TruthTestableWithVirtualFunction a;
     ASSERT_TRUE(a);
     TruthTestableCRTP b;
     ASSERT_TRUE(b);
+    TruthTestable c(false);
+    ASSERT_FALSE(c);
 }
