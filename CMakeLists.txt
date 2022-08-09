@@ -5,6 +5,12 @@ project(modern-cpp-demo LANGUAGES C CXX ASM)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "None")
+    set (CMAKE_BUILD_TYPE "RelWithDebInfo")
+    message (STATUS "CMAKE_BUILD_TYPE is not set, set to default = ${CMAKE_BUILD_TYPE}")
+endif ()
+message (STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+
 find_program(CPPLINT_BIN
         NAMES cpplint cpplint.py
         HINTS "/usr/local/bin")
