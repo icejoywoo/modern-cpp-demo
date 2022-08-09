@@ -67,7 +67,9 @@ include_directories(third_party)
 
 ## google test
 enable_testing()
+include(GoogleTest) # gtest_add_tests / gtest_discover_tests
 
+add_subdirectory(common)
 add_subdirectory(basic)
 add_subdirectory(template)
 add_subdirectory(simple-tests)

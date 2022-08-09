@@ -1,10 +1,6 @@
 add_executable(hello hello.cc)
 target_link_libraries(hello glog gflags::gflags)
 
-## google test
-enable_testing()
-include(GoogleTest) # gtest_add_tests / gtest_discover_tests
-
 # google benchmark
 add_executable(benchmark_demo benchmark_demo.cpp)
 target_link_libraries(benchmark_demo benchmark::benchmark benchmark::benchmark_main pthread)
