@@ -1,5 +1,9 @@
 #include "simd_util.h"
 
+#ifdef USE_JEMALLOC
+#include <jemalloc/jemalloc.h>
+#endif
+
 #include "benchmark/benchmark.h"
 
 static void BM_memset(benchmark::State& state) {

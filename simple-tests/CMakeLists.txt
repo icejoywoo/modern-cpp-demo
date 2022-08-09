@@ -11,6 +11,9 @@ add_test(doctest_test doctest_test)
 add_executable(nanobench_test nanobench_test.cpp)
 target_link_libraries(nanobench_test nanobench)
 
+add_executable(ex_stats_print ex_stats_print.cpp)
+target_link_libraries(ex_stats_print PRIVATE ch_contrib::jemalloc pthread ${CMAKE_DL_LIBS})
+
 add_subdirectory(boost)
 add_subdirectory(poco)
 add_subdirectory(proto)

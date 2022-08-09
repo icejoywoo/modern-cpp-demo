@@ -11,6 +11,7 @@ target_link_libraries(xsimd_mem_bench benchmark::benchmark pthread xsimd)
 
 if (ENABLE_JEMALLOC)
     add_executable(xsimd_mem_bench_jemalloc xsimd_mem_bench.cpp)
+    target_compile_definitions(xsimd_mem_bench_jemalloc PRIVATE -DUSE_JEMALLOC)
     target_link_libraries(xsimd_mem_bench_jemalloc benchmark::benchmark pthread xsimd ch_contrib::jemalloc)
 endif()
 
