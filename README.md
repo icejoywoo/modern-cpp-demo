@@ -44,3 +44,17 @@ git submodule update --init --recursive
 ### Articles from WeChat Official Accounts
 * [现代 C++ 测试工具链(是时候抛弃 gtest/google bench 了)](https://mp.weixin.qq.com/s/HPs4RMKAoeSfG1qZkS8h3Q)
 * [原创 | 如何系统学习C++？](https://mp.weixin.qq.com/s/WW_X12bTm94iaCgWBgYtJw)
+
+# misc
+
+## output size
+
+ubuntu 20.04:
+* gcc version 9.4.0: 4.7G
+* Ubuntu clang version 15.0.0: 1.8G
+* gcc version 11.1.0: 3.7G
+
+install latest clang:
+```bash
+sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+```
