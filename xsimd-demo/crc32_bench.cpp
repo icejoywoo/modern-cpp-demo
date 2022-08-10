@@ -1,5 +1,7 @@
 #include "benchmark/benchmark.h"
 
+#ifdef __SSE__
+
 #include <cstdint>
 #include <stdio.h>
 #include <string.h>
@@ -135,6 +137,8 @@ BENCHMARK(BM_hashKey8)->Range(1024, 8<<12);
 BENCHMARK(BM_hashKey16)->Range(1024, 8<<12);
 BENCHMARK(BM_hashKey24)->Range(1024, 8<<12);
 BENCHMARK(BM_stringRefHash)->Range(1024, 8<<12);
+
+#endif
 
 /**
  * result:

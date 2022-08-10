@@ -28,6 +28,7 @@ void mean(const vector_type& a, const vector_type& b, vector_type& res)
 }
 
 TEST(XsimdTest, BasicTest) {
+#ifdef __AVX__
     {
         xs::batch<double, xs::avx> a = {1.5, 2.5, 3.5, 4.5};
         xs::batch<double, xs::avx> b = {2.5, 3.5, 4.5, 5.5};
@@ -36,6 +37,7 @@ TEST(XsimdTest, BasicTest) {
         ss << mean;
         ASSERT_EQ("(2, 3, 4, 5)", ss.str());
     }
+#endif
 
     {
         vector_type res(4);

@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#ifdef __AVX__
+
 // https://xsimd.readthedocs.io/en/latest/vectorized_code.html
 // xsimd::dispatch(mean{})(a, b, res, xsimd::aligned_mode / xsimd::unaligned_mode)
 // arch-independent code
@@ -18,10 +20,12 @@ struct mean {
         std::size_t vec_size = size - size % inc;
         for(std::size_t i = 0; i < vec_size; i += inc)
         {
+
             b_type avec = b_type::load(&a[i], Tag());
             b_type bvec = b_type::load(&b[i], Tag());
             b_type rvec = (avec + bvec) / 2;
             xsimd::store(&res[i], rvec, Tag());
+
         }
         // Remaining part that cannot be vectorized
         for(std::size_t i = vec_size; i < size; ++i)
@@ -30,6 +34,8 @@ struct mean {
         }
     }
 };
+
+#endif
 
 template <typename T>
 std::vector<T> gen(size_t n, T start, T delta) {
@@ -40,6 +46,8 @@ std::vector<T> gen(size_t n, T start, T delta) {
     }
     return res;
 }
+
+#ifdef __AVX__
 
 static void BM_unaligned(benchmark::State& state) {
     int64_t size = state.range(0);
@@ -75,6 +83,7 @@ static void BM_aligned(benchmark::State& state) {
     state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(a.size()));
     benchmark::DoNotOptimize(res);
 }
+#endif
 
 static void BM_iterate_without_xsimd(benchmark::State& state) {
   int64_t size = state.range(0);
@@ -94,8 +103,10 @@ static void BM_iterate_without_xsimd(benchmark::State& state) {
 }
 
 // Register the function as a benchmark
+#ifdef __AVX__
 BENCHMARK(BM_unaligned)->Range(8, 8<<10);
 BENCHMARK(BM_aligned)->Range(8, 8<<10);
+#endif
 BENCHMARK(BM_iterate_without_xsimd)->Range(8, 8<<10);
 
 /**

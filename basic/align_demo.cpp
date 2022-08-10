@@ -5,6 +5,9 @@
 #include <chrono>
 
 static inline void *__movsb(void *d, const void *s, size_t n) {
+#ifdef OS_APPLE_M1
+    memcpy(d, s, n);
+#else
     asm volatile ("rep movsb"
             : "=D" (d),
               "=S" (s),
@@ -14,6 +17,7 @@ static inline void *__movsb(void *d, const void *s, size_t n) {
               "2" (n)
             : "memory");
     return d;
+#endif
 }
 
 /// result:

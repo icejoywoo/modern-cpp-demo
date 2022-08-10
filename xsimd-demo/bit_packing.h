@@ -1,8 +1,6 @@
 #pragma once
 #include <cstdint>
 
-#include <emmintrin.h>
-
 namespace bit::packing {
 
 class Simple {
@@ -130,6 +128,8 @@ class PackedStruct {
 };
 
 #ifdef __SSE2__
+#include <emmintrin.h>
+
 // https://stackoverflow.com/questions/8461126/how-to-create-a-byte-out-of-8-bool-values-and-vice-versa
 inline uint8_t pack8bools_SSE2(const uint8_t* a)
 {
@@ -138,9 +138,7 @@ inline uint8_t pack8bools_SSE2(const uint8_t* a)
   v = _mm_slli_epi32(v, 7);   // low bit of each byte becomes the highest
   return _mm_movemask_epi8(v);
 }
-#endif
 
-#ifdef __SSE2__
 class Sse2 {
  public:
   static void encodeAsBits(uint8_t* input, int input_length,
