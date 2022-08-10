@@ -19,6 +19,7 @@ endif()
 add_subdirectory(boost)
 add_subdirectory(poco)
 add_subdirectory(proto)
+add_subdirectory(llvm-kaleidoscope)
 
 find_package(folly CONFIG)
 if (folly_FOUND)

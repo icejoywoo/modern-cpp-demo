@@ -66,6 +66,7 @@ add_contrib (jemalloc-cmake jemalloc)
 add_contrib (protobuf-cmake protobuf)
 add_contrib (rapidjson-cmake rapidjson)
 add_contrib (re2-cmake re2)
+add_contrib (llvm-cmake llvm)
 
 # Put all targets defined here and in subdirectories under "contrib/<immediate-subdir>" folders in GUI-based IDEs.
 # Some of third-party projects may override CMAKE_FOLDER or FOLDER property of their targets, so they would not appear
