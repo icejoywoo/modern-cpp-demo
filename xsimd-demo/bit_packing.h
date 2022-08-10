@@ -1,6 +1,10 @@
 #pragma once
 #include <cstdint>
 
+#ifdef __SSE2__
+#include <emmintrin.h>
+#endif
+
 namespace bit::packing {
 
 class Simple {
@@ -128,7 +132,6 @@ class PackedStruct {
 };
 
 #ifdef __SSE2__
-#include <emmintrin.h>
 
 // https://stackoverflow.com/questions/8461126/how-to-create-a-byte-out-of-8-bool-values-and-vice-versa
 inline uint8_t pack8bools_SSE2(const uint8_t* a)
