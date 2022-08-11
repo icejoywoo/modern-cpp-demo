@@ -1,5 +1,6 @@
 # https://github.com/ClickHouse/ClickHouse/blob/master/contrib/llvm-cmake/CMakeLists.txt
 # changes: remove APPLE and NOT ARCH_AMD64
+# https://github.com/ClickHouse/ClickHouse/commit/dd7ae2b9aaaa747bcd8b67bd4d0955f90f543e72
 if (SANITIZE STREQUAL "undefined")
    set (ENABLE_EMBEDDED_COMPILER_DEFAULT OFF)
 else()
