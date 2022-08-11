@@ -1,4 +1,6 @@
-if (APPLE OR NOT ARCH_AMD64 OR SANITIZE STREQUAL "undefined")
+# https://github.com/ClickHouse/ClickHouse/blob/master/contrib/llvm-cmake/CMakeLists.txt
+# changes: remove APPLE and NOT ARCH_AMD64
+if (SANITIZE STREQUAL "undefined")
    set (ENABLE_EMBEDDED_COMPILER_DEFAULT OFF)
 else()
    set (ENABLE_EMBEDDED_COMPILER_DEFAULT ON)
