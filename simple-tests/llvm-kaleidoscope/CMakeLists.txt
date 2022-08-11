@@ -14,3 +14,6 @@ add_executable(toy toy.cpp)
 target_link_libraries(toy PRIVATE ch_contrib::llvm)
 
 add_executable(kaleidoscope_ch2 ch2.cpp)
+
+add_executable(kaleidoscope_ch4 ch4.cpp)
+target_link_libraries(kaleidoscope_ch4 PRIVATE ch_contrib::llvm)
