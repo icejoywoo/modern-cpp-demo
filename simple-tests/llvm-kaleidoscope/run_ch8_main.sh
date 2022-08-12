@@ -5,6 +5,5 @@
 # ^D
 # Wrote output.o
 
-g++ ch8_main.cpp ../../_build/output.o -o main
-./main
+g++ ch8_main.cpp ../../_build/output.o -o main && ./main && rm ./main
 # average of 3.0 and 4.0: 3.5
