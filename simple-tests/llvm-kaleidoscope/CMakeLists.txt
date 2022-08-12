@@ -10,35 +10,35 @@ if (NOT USE_EMBEDDED_COMPILER)
     return()
 endif()
 
-add_executable(toy toy.cpp)
-target_link_libraries(toy PRIVATE ch_contrib::llvm)
-
 # refer ClickHouse src/CMakeLists.txt dbms_target_link_libraries
-list (APPEND all_modules toy)
+# https://cmake.org/cmake/help/latest/command/macro.html
 macro (llvm_target_link_libraries)
     foreach (module ${all_modules})
         target_link_libraries (${module} ${ARGN})
     endforeach ()
 endmacro ()
 
+# https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html
 add_executable(kaleidoscope_ch2 ch2.cpp)
 
-add_executable(kaleidoscope_ch4 ch4.cpp)
-list (APPEND all_modules kaleidoscope_ch4)
-target_link_libraries(kaleidoscope_ch4 PRIVATE ch_contrib::llvm
-    LLVMOrcJIT
-    ${CMAKE_DL_LIBS})
+set(LLVM_WITH_OrcJIT ch_contrib::llvm LLVMOrcJIT ${CMAKE_DL_LIBS} LLVMAArch64CodeGen LLVMX86CodeGen)
 
-add_executable(kaleidoscope_ch5 ch5.cpp)
-list (APPEND all_modules kaleidoscope_ch5)
-target_link_libraries(kaleidoscope_ch5 PRIVATE ch_contrib::llvm
-    LLVMOrcJIT
-    ${CMAKE_DL_LIBS})
+macro (add_kaleidoscope_target ch)
+    list (APPEND all_modules kaleidoscope_${ch})
+    add_executable(kaleidoscope_${ch} ${ch}.cpp)
+    target_link_libraries(kaleidoscope_${ch} PRIVATE ${LLVM_WITH_OrcJIT})
+endmacro ()
 
-if (ARCH_AMD64)
-    llvm_target_link_libraries(PRIVATE LLVMX86AsmParser)
-elseif(ARCH_AARCH64)
-    llvm_target_link_libraries(PRIVATE LLVMAArch64AsmParser)
+add_kaleidoscope_target(ch3)
+add_kaleidoscope_target(ch4)
+add_kaleidoscope_target(ch5)
+add_kaleidoscope_target(ch6)
+add_kaleidoscope_target(ch7)
+add_kaleidoscope_target(ch8)
+add_kaleidoscope_target(ch9)
+
+if (ARCH_AMD64 OR ARCH_AARCH64)
+    llvm_target_link_libraries(PRIVATE LLVMX86AsmParser LLVMAArch64AsmParser)
 else()
     message(FATAL_ERROR "arch is not supported on llvm building")
 endif()
