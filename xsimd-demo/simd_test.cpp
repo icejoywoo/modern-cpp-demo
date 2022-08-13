@@ -44,13 +44,8 @@ TEST(XsimdTest, BasicTest) {
         mean({1.5, 2.5, 3.5, 4.5}, {2.5, 3.5, 4.5, 5.5}, res);
         std::stringstream ss;
         ASSERT_EQ(4, res.size());
-        for (std::size_t i = 0; i < res.size(); ++i) {
-          if (i != 0) {
-            ss << ", ";
-          }
-          ss << res[i];
-        }
-        ASSERT_EQ("2, 3, 4, 5", ss.str());
+        std::copy(res.begin(), res.end(), std::ostream_iterator<int>(ss, ", "));
+        ASSERT_EQ("2, 3, 4, 5, ", ss.str());
         ASSERT_EQ("\2\3\4\5", std::string(res.begin(), res.end()));
     }
 }
