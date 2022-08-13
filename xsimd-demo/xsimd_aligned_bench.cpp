@@ -4,7 +4,7 @@
 
 #include <vector>
 
-#ifdef __AVX__
+#if XSIMD_WITH_AVX || XSIMD_WITH_SSE2 || XSIMD_WITH_AVX512F
 
 // https://xsimd.readthedocs.io/en/latest/vectorized_code.html
 // xsimd::dispatch(mean{})(a, b, res, xsimd::aligned_mode / xsimd::unaligned_mode)
@@ -47,7 +47,7 @@ std::vector<T> gen(size_t n, T start, T delta) {
     return res;
 }
 
-#ifdef __AVX__
+#if XSIMD_WITH_AVX || XSIMD_WITH_SSE2 || XSIMD_WITH_AVX512F
 
 static void BM_unaligned(benchmark::State& state) {
     int64_t size = state.range(0);
@@ -103,7 +103,7 @@ static void BM_iterate_without_xsimd(benchmark::State& state) {
 }
 
 // Register the function as a benchmark
-#ifdef __AVX__
+#if XSIMD_WITH_AVX || XSIMD_WITH_SSE2 || XSIMD_WITH_AVX512F
 BENCHMARK(BM_unaligned)->Range(8, 8<<10);
 BENCHMARK(BM_aligned)->Range(8, 8<<10);
 #endif
