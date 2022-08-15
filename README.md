@@ -58,3 +58,29 @@ install latest clang:
 ```bash
 sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 ```
+
+## build script
+
+```bash
+#!/bin/bash
+
+set -x
+set -u
+set -e
+
+
+BUILD_DIR=_build
+
+# https://github.com/open-mpi/ompi/issues/9317
+# openmpi missing flag on ubuntu 20.04
+# export LDFLAGS="-lopen-pal"
+
+time (
+	rm -rf ${BUILD_DIR}
+	mkdir ${BUILD_DIR}
+	cd ${BUILD_DIR}
+	cmake .. -G Ninja -DRELEASE_ENABLE_O3=ON -DBUILD_WITH_LLVM=ON
+	cmake --build .
+	ctest
+)
+```
