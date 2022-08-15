@@ -1,6 +1,8 @@
 Modern Cpp Demo
 ========
 
+![ci status](https://github.com/icejoywoo/modern-cpp-demo/actions/workflows/ci.yml/badge.svg)
+
 demos for learning modern cpp (since c++11)
 
 tested on MacOS and Linux (Ubuntu)
