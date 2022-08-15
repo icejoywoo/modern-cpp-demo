@@ -39,6 +39,18 @@ TEST(XsimdTest, BasicTest) {
     }
 #endif
 
+#ifdef __ARM_NEON__
+    {
+        // cannot use double
+        xs::batch<float, xs::neon> a = {1.5, 2.5, 3.5, 4.5};
+        xs::batch<float, xs::neon> b = {2.5, 3.5, 4.5, 5.5};
+        auto mean = (a + b) / 2;
+        std::stringstream ss;
+        ss << mean;
+        ASSERT_EQ("(2, 3, 4, 5)", ss.str());
+    }
+#endif
+
     {
         vector_type res(4);
         mean({1.5, 2.5, 3.5, 4.5}, {2.5, 3.5, 4.5, 5.5}, res);
