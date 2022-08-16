@@ -62,10 +62,26 @@ static void packed_struct(benchmark::State& state) {
   delete[] output;
 }
 
+static void bit_hacks(benchmark::State& state) {
+    size_t size = state.range(0);
+    auto* input = new uint8_t[size];
+    gen(input, size);
+    size_t output_len = size / 8 + 1;
+    auto* output = new uint8_t[output_len];
+    for (auto _ : state) {
+        BitHacks::encodeAsBits(input, size, output);
+    }
+    benchmark::DoNotOptimize(input);
+    benchmark::DoNotOptimize(output);
+    delete[] input;
+    delete[] output;
+}
+
 // Register the function as a benchmark
 BENCHMARK(simple)->Range(8, 8<<12);
 BENCHMARK(multiplication)->Range(8, 8<<12);
 BENCHMARK(packed_struct)->Range(8, 8<<12);
+BENCHMARK(bit_hacks)->Range(8, 8<<12);
 
 #ifdef __SSE2__
 static void sse2(benchmark::State& state) {

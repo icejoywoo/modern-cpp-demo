@@ -131,6 +131,48 @@ class PackedStruct {
   }
 };
 
+// f: conditional flag
+// m: the bit mask
+// w: the word to modify, if (f) w |= m; else w &= ~m;
+#define BIT_HACK_SET_BIT(f, m, w) \
+    w = ((w) & ~(m)) | (-(f) & (m))
+
+// http://graphics.stanford.edu/~seander/bithacks.html#ConditionalSetOrClearBitsWithoutBranching
+class BitHacks {
+public:
+    static void encodeAsBits(uint8_t* input, int input_length,
+                             uint8_t* output) {
+        int idx = 0;
+
+        int batch_size = input_length & ~0b111;
+        int left_size = input_length & 0b111;
+
+        for (int position = 0; position < batch_size; position += 8) {
+            unsigned value = 0;
+            BIT_HACK_SET_BIT(input[position] == 1, 0b10000000, value);
+            BIT_HACK_SET_BIT(input[position + 1] == 1, 0b01000000, value);
+            BIT_HACK_SET_BIT(input[position + 2] == 1, 0b00100000, value);
+            BIT_HACK_SET_BIT(input[position + 3] == 1, 0b00010000, value);
+            BIT_HACK_SET_BIT(input[position + 4] == 1, 0b00001000, value);
+            BIT_HACK_SET_BIT(input[position + 5] == 1, 0b00000100, value);
+            BIT_HACK_SET_BIT(input[position + 6] == 1, 0b00000010, value);
+            BIT_HACK_SET_BIT(input[position + 7] == 1, 0b00000001, value);
+            output[idx++] = value;
+        }
+
+        // write last null bits
+        if (left_size > 0) {
+            unsigned char value = 0;
+            int mask = 0b10000000;
+            for (int position = batch_size; position < input_length; position++) {
+                value |= input[position] == 1 ? mask : 0;
+                mask >>= 1;
+            }
+            output[idx] = value;
+        }
+    }
+};
+
 #ifdef __SSE2__
 
 // https://stackoverflow.com/questions/8461126/how-to-create-a-byte-out-of-8-bool-values-and-vice-versa
